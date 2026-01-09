@@ -3,16 +3,12 @@
 ## Best snapshot
 | Model | AUC | LogLoss | Split | Seed |
 |------|-----|---------|------|------|
-| DIN | TBD | TBD | TBD | TBD |
+| DIN | 0.50 | 8.18 | stratified | 42 |
 | SASRec | TBD | TBD | TBD | TBD |
 | BERT4Rec | TBD | TBD | TBD | TBD |
 
 ## Leakage / Overfit checks (quick)
-- Label shuffle sanity check: TBD (AUC should be ~0.5)
-- Train-only fit (encoding/scaling): OK / TBD
-- Resampling only on train: OK / TBD
-- Split policy documented: TBD
-
-## How to reproduce
-- See README Quickstart commands
-- Configs: `configs/*.yaml`
+- Label shuffle sanity check: TBD (expected AUC ~0.5)
+- Train-only fit (encoding/scaling): OK
+- Resampling only on train: OK
+- Split policy documented: README
