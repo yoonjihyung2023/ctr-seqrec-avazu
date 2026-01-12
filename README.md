@@ -1,4 +1,17 @@
 # ctr-seqrec-avazu
+
+Reproducible **CTR (Click-Through Rate) prediction** pipeline on the **Avazu dataset**.  
+Focus: **no data leakage**, **fair evaluation**, and **clear reproducibility**.
+
+---
+
+## 🚀 Quickstart (3 lines)
+```bash
+pip install -r requirements.txt
+python scripts/preprocess.py
+python scripts/train.py
+
+# ctr-seqrec-avazu
 CTR(클릭) 예측 + 순차 추천 실험을 Avazu 데이터로 **누수 없이** 재현하는 레포입니다.  
 목표는 점수 자랑이 아니라 **믿을 수 있는 실험 파이프라인**입니다.
 
