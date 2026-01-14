@@ -1,3 +1,10 @@
+## Quickstart (3 commands)
+
+```bash
+pip install -r requirements.txt
+python -m src.run --config configs/sasrec.yaml
+cat reports/metrics.json
+
 # ctr-seqrec-avazu
 
 Avazu CTR 데이터로 **CTR(클릭) 예측 + 순차 추천 모델**을 실험하는 레포입니다.  
