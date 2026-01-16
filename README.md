@@ -11,4 +11,4 @@ Avazu CTR 데이터로 **CTR(클릭) 예측 + 순차(Sequential) 추천 모델**
 pip install -r requirements.txt
 python -m src.run --config configs/sasrec.yaml
 cat reports/metrics.json
-python -m src.eval --config configs/din.yaml
+```
