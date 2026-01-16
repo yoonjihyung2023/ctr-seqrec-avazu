@@ -12,3 +12,5 @@ pip install -r requirements.txt
 python -m src.run --config configs/sasrec.yaml
 cat reports/metrics.json
 ```
+
+실행 결과는 `reports/metrics.json`에 저장됩니다.
