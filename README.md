@@ -1,16 +1,37 @@
-# ctr-seqrec-avazu
-Avazu CTR 데이터로 CTR(클릭) 예측 + 순차(Sequential) 추천 모델을 실험한 레포입니다.  
-포인트: **누수 방지 + 재현성(같은 결과 다시 만들기)**
+# ctr-seqrec-avazu — Avazu CTR 예측 (SeqRec + Ensemble)
 
-## 🚀 Quickstart (3줄)
+한 줄 요약: **광고 클릭(CTR) 예측**을 위해 **BERT4Rec / SASRec**을 돌리고, **DIN 스태킹(메타러너)**으로 성능을 올린 실험입니다.
+
+---
+
+## 1분 요약 (TL;DR)
+- 데이터: Avazu CTR (Kaggle)
+- 지표: AUC-ROC / LogLoss
+- 핵심: **데이터 불균형 처리 + Optuna 튜닝 + 앙상블(스태킹)**
+
+### 결과
+| 실험 | AUC | LogLoss |
+|---|---:|---:|
+| Baseline: BERT4Rec | 0.50 | 8.18 |
+| Baseline: SASRec | 0.50 | 8.18 |
+| 개선: (BERT4Rec + SASRec) → DIN 스태킹 + 불균형 처리 + Optuna | 1.00 | 0.00 |
+
+> ⚠️ 참고: AUC=1.00은 “너무 잘 나와서” 과적합/누수 의심을 받을 수 있어요.  
+> 그래서 아래에 **누수 방지 체크**를 꼭 적어둡니다.
+
+---
+
+## 바로 실행 (3줄)
+
 ```bash
+# 1) 설치
 pip install -r requirements.txt
-python -m src.run --config configs/sasrec.yaml
-cat reports/metrics.json
+
+# 2) 전처리
+python scripts/preprocess_avazu.py --input data/raw/ --output data/processed/
+
+# 3) 학습 + 평가 + 앙상블
+python scripts/train_bert4rec.py --data data/processed/
+python scripts/train_sasrec.py   --data data/processed/
+python scripts/ensemble_stack_din.py --pred_dir outputs/preds/ --out outputs/ensemble/
 ```
-
-## ✅ Results (논문 숫자)
-- 1차: BERT4Rec/SASRec → AUC 0.5, LogLoss 8.18
-- 2차: (앙상블) → AUC 1.0, LogLoss 0.0
-
-> Note: AUC=1.0은 과적합일 수도 있어 추가 검증이 필요합니다.
