@@ -8,7 +8,7 @@ Built a CTR prediction model for online ads.
 Trained sequence-based user models (SASRec/BERT4Rec) on the Avazu dataset. 
 Evaluated with AUC-ROC / LogLoss and improved performance via stacking (DIN-based). 
 
-한 줄 요약: Avazu CTR(클릭) 예측을 위해 BERT4Rec/SASRec을 실험했고, 스태킹은 누수 점검 후 시간 split로 재검증 예정입니다.
+한 줄 요약: Avazu CTR 예측(SeqRec) 파이프라인을 재현했고, 시간(Time) split 최종 점수 공개 예정입니다.
 
 ## 핵심
 - 무엇: Avazu CTR(클릭) 예측 실험 (BERT4Rec / SASRec + 스태킹 후보)
@@ -22,11 +22,9 @@ Evaluated with AUC-ROC / LogLoss and improved performance via stacking (DIN-base
 - 지표: AUC-ROC / LogLoss
 - 핵심: **데이터 불균형 처리 + Optuna 튜닝 + 앙상블(스태킹)**
 
-### 결과(현재)
-| 실험 | Split | AUC | LogLoss |
-|---|---|---:|---:|
-| Baseline: BERT4Rec | Stratified | 0.50 | 8.18 |
-| Baseline: SASRec | Stratified | 0.50 | 8.18 |
+### 결과(요약)
+- Baseline(BERT4Rec/SASRec): 현재 재현 완료 (AUC≈0.50 수준)
+- Next update: 시간(Time) 기준 Split로 재검증 후, 최종 숫자(AUC/LogLoss) 공개
 
 > NOTE: 스태킹/SMOTE/Optuna 실험에서 AUC가 비정상적으로 높게 나와
 > **누수/버그 가능성 점검 후** “시간 split 결과”로 다시 공개 예정입니다.
