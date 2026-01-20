@@ -40,3 +40,5 @@ cat reports/metrics.json
 ```
 
 > run_all.py는 **Train/Valid/Test를 먼저 나눈 뒤**, 샘플링/튜닝은 **Train에만** 적용하고, 결과를 `reports/metrics.json`에 저장합니다.
+
+결과 파일: [reports/metrics.json](reports/metrics.json)
