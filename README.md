@@ -31,6 +31,6 @@
 ## 바로 실행 (3줄)
 ```bash
 pip install -r requirements.txt
-python scripts/preprocess_avazu.py --input data/raw/ --output data/processed/
-python scripts/run_all.py --data data/processed/
+python run_all.py
+cat reports/metrics.json
 ```
