@@ -1,0 +1,1 @@
+{"auc": 0.50, "logloss": 8.18, "split": "stratified", "seed": 42, "note": "stacking/smote는 누수 점검 후 time split로 재공개 예정"}
