@@ -1,5 +1,13 @@
 # ctr-seqrec-avazu — Avazu CTR 예측 (SeqRec + Ensemble)
 
+광고 클릭(CTR)을 예측하는 모델을 만들었습니다.
+Avazu 데이터로, 사용자 행동 “순서”를 보는 모델(SASRec/BERT4Rec)을 학습했습니다. 
+AUC-ROC / LogLoss로 성능을 확인했고, 스태킹(DIN 기반)으로 성능을 개선했습니다. 
+
+Built a CTR prediction model for online ads.
+Trained sequence-based user models (SASRec/BERT4Rec) on the Avazu dataset. 
+Evaluated with AUC-ROC / LogLoss and improved performance via stacking (DIN-based). 
+
 한 줄 요약: Avazu CTR(클릭) 예측을 위해 BERT4Rec/SASRec을 실험했고, 스태킹은 누수 점검 후 시간 split로 재검증 예정입니다.
 
 ## 핵심
