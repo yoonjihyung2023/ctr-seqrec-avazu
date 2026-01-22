@@ -23,4 +23,4 @@ cat reports/metrics.json
 ✅ 결과는 `reports/metrics.json`에 저장됩니다. (seed/config 기록은 추가 예정)
 
 ## Leakage 체크(예정)
-- Label Shuffle 테스트를 추가 중입니다. (결과: `label_shuffle_auc` → `reports/metrics.json`)
+- Label Shuffle 테스트를 추가 중입니다. (결과: `label_shuffle_auc` → `reports/metrics.json`).
