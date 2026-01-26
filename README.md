@@ -18,10 +18,13 @@
 ```
 
 ## 바로 실행
-- 시간 기준 Split 사용(미래 정보 금지).
+시간 기준 Split 사용(미래 정보 금지).
 
 ```bash
 pip install -r requirements.txt
 python run_all.py
 cat reports/metrics.json
 ```
+
+## Note
+지금은 time split + label shuffle만 공개(누수 체크). stacking/SMOTE는 검증 후 추가.
