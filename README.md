@@ -4,13 +4,14 @@
 (석사 논문 기반: SASRec / BERT4Rec, 평가: AUC-ROC & LogLoss)
 
 ## Results (핵심만 10초)
-*Baseline = 간단한 기본 모델 / Improved = 순차모델+앙상블.*  
+*Baseline = 간단한 기본 모델 / Tried = 순차모델+앙상블 시도.*  
 이 프로젝트는 “클릭 맞히기 게임”이에요.  
 점수는 **AUC(클수록 좋음)**, **LogLoss(작을수록 좋음)** 입니다.
 
-- Baseline(처음, 거의 랜덤): **AUC 0.50 / LogLoss 8.18**
-- Improved(더 잘하려고 한 것): **SASRec/BERT4Rec 실험 + Stacking(메타러너: DIN)로 개선**
-- Safety check(속임수 방지): **Label Shuffle AUC ≈ 0.50 이면 정상** (수치 업데이트 예정)
+- Split: time-based (미래 정보 사용 금지)
+- Sanity check (label shuffle): AUC = 0.50 → 정상
+- Next: test AUC/LogLoss = 0.0 이슈 → metric 계산/저장 버그 수정 후 수치 업데이트
+- Tried: SASRec/BERT4Rec + stacking (meta-learner: DIN)
 
 ⚠️ 참고: AUC가 너무 높게 나오면(예: 1.0) **누수/과적합**일 수도 있어요.
 
@@ -28,16 +29,13 @@ python run_all.py
 ## Output (결과 파일)
 `reports/metrics.json`에 저장됩니다.
 
-예시:
-```json
-{
-  "test_auc": 0.0,
-  "test_logloss": 0.0,
-  "label_shuffle_auc": 0.5
-}
-```
-- `label_shuffle_auc`가 0.50이면 정상입니다. (라벨을 섞으면 모델은 거의 랜덤이 되어야 함)
-- ⚠️ `test_auc/test_logloss`는 현재 출력 값 검증 중입니다. (metric 계산/저장 파이프라인 점검 중)
+포함되는 항목:
+- `test_auc`: Test AUC (계산/저장 파이프라인 점검 후 업데이트)
+- `test_logloss`: Test LogLoss (계산/저장 파이프라인 점검 후 업데이트)
+- `label_shuffle_auc`: Sanity check AUC (라벨을 섞으면 0.50 근처가 정상)
+
+현재 확인된 값:
+- `label_shuffle_auc = 0.50` ✅
 
 ## Environment
 Python 3.10+
