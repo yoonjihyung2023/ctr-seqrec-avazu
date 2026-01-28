@@ -31,12 +31,13 @@ python run_all.py
 예시:
 ```json
 {
-  "test_auc": 0.50,
-  "test_logloss": 8.18,
-  "label_shuffle_auc": null
+  "test_auc": 0.0,
+  "test_logloss": 0.0,
+  "label_shuffle_auc": 0.5
 }
 ```
-- `label_shuffle_auc`는 정상이라면 0.50 근처입니다. (추후 업데이트)
+- `label_shuffle_auc`가 0.50이면 정상입니다. (라벨을 섞으면 모델은 거의 랜덤이 되어야 함)
+- ⚠️ `test_auc/test_logloss`는 현재 출력 값 검증 중입니다. (metric 계산/저장 파이프라인 점검 중)
 
 ## Environment
 Python 3.10+
