@@ -1,41 +1,48 @@
-# ctr-seqrec-avazu — Avazu CTR 예측 (SeqRec + Leakage-safe Pipeline)
+# ctr-seqrec-avazu — Avazu CTR 예측 (SeqRec + Leakage-safe)
 
-한 줄: “사람이 클릭할지”를 맞히는 모델을 만들었고, **시간 기준 split(미래 금지)** 으로 **누수 없이** 성능을 봤어요.  
-(석사 논문 기반: SASRec / BERT4Rec, 평가: AUC-ROC & LogLoss)
+## 한 줄
+“사람이 클릭할지” 예측합니다. **시간 기준 split(미래 금지)** 으로 **데이터 누수 없이** 평가합니다.
 
-## Results (핵심만 10초)
-*Baseline = 간단한 기본 모델 / Tried = 순차모델+앙상블 시도.*  
-이 프로젝트는 “클릭 맞히기 게임”이에요.  
-점수는 **AUC(클수록 좋음)**, **LogLoss(작을수록 좋음)** 입니다.
+## 10초 핵심 (면접관이 제일 보고 싶은 것)
+- ✅ 미래 데이터 금지: time-based split
+- ✅ 치팅 방지 확인: label shuffle 하면 AUC ≈ 0.50 (정상)
+- ✅ 재현 가능: `run_all.py` 한 방 실행 + `reports/metrics.json` 결과 저장
+- ✅ Reproduce: `python run_all.py` → `reports/metrics.json`
 
-- Split: time-based (미래 정보 사용 금지)
-- Sanity check (label shuffle): AUC = 0.50 → 정상
-- Next: test AUC/LogLoss = 0.0 이슈 → metric 계산/저장 버그 수정 후 수치 업데이트
-- Tried: SASRec/BERT4Rec + stacking (meta-learner: DIN)
+## 현재 확실히 공개 가능한 결과
+- ✅ `label_shuffle_auc = 0.50`  (라벨을 섞으면 동전 수준이 나와야 정상)
 
-⚠️ 참고: AUC가 너무 높게 나오면(예: 1.0) **누수/과적합**일 수도 있어요.
+> 성능 숫자(AUC/LogLoss)는 “확실한 값”만 올립니다.  
+> 너무 완벽한 값(AUC 1.0 / LogLoss 0.0)은 누수/버그로 오해받기 쉬워서  
+> 검증 완료 전에는 메인에 두지 않습니다.
 
-## What I built (제가 만든 것)
-- 한 번에 돌리는 스크립트: `run_all.py`
-- 결과 저장: `reports/metrics.json` (실험 비교 쉽게)
-- 시간 기준 Split(미래 정보 금지) + Label-shuffle sanity check 구조
-
-## Run (바로 실행)
+## 실행 (2줄)
 ```bash
 pip install -r requirements.txt
 python run_all.py
 ```
 
-## Output (결과 파일)
-`reports/metrics.json`에 저장됩니다.
+## 데이터
+Avazu Click-Through Rate Prediction (Kaggle)
 
-포함되는 항목:
-- `test_auc`: Test AUC (계산/저장 파이프라인 점검 후 업데이트)
-- `test_logloss`: Test LogLoss (계산/저장 파이프라인 점검 후 업데이트)
-- `label_shuffle_auc`: Sanity check AUC (라벨을 섞으면 0.50 근처가 정상)
+## 결과 파일
+- `reports/metrics.json`
+  - `test_auc`
+  - `test_logloss`
+  - `label_shuffle_auc`
 
-현재 확인된 값:
-- `label_shuffle_auc = 0.50` ✅
+```json
+{
+  "label_shuffle_auc": 0.50,
+  "test_auc": null,
+  "test_logloss": null
+}
+```
 
-## Environment
-Python 3.10+
+## 내가 만든 것
+- 시간 기준 split 파이프라인 (미래 금지)
+- label shuffle sanity check (치팅 방지)
+- 실험 결과 저장 구조 (`metrics.json`)
+
+## 다음 작업 (짧게)
+- metric 계산/저장 검증 완료 후 `test_auc`, `test_logloss` 업데이트
