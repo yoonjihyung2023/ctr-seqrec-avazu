@@ -49,3 +49,27 @@ Avazu Click-Through Rate Prediction (Kaggle)
 
 ## One-line summary
 Demo pipeline for CTR/SeqRec evaluation with leakage sanity-check (label shuffle).
+
+### Why Sequential Modeling for CTR?
+
+Classic CTR prediction often treats each impression as an independent event.
+But user clicks are strongly influenced by **recent interactions** and **temporal context**.
+
+This project frames CTR as a **sequential recommendation-style** problem:
+
+- **Temporal dependency**
+  Recent clicks/impressions provide a strong signal for the next click.
+  Modeling ordered histories helps capture short- and mid-term intent.
+
+- **Self-attention for behavior weighting**
+  SASRec-style self-attention can learn which past events matter most,
+  instead of assuming uniform contribution from all history items.
+
+- **Leakage-safe evaluation**
+  We use a strict **time-based split** so that future information does not
+  leak into training. This is critical for reliable offline evaluation.
+
+**Sanity checks**
+- `label_shuffle_auc` should be ~0.5 (random), confirming the evaluation pipeline.
+- If `test_auc` is also ~0.5, the model is likely not learning meaningful signal yet,
+  and the next step is to verify target alignment, sequence construction, and training loop.
