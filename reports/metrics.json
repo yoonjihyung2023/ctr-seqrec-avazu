@@ -1,1 +1,10 @@
-﻿{"test_auc": 0.5, "test_logloss": 0.9339, "label_shuffle_auc": 0.5}
+{
+  "dataset": "Avazu",
+  "split": "time-based (leakage-safe)",
+  "model": "SASRec",
+  "test_auc": 0.5,
+  "test_logloss": 0.9339,
+  "label_shuffle_auc": 0.5,
+  "seed": 42,
+  "notes": "Trained with validated pipeline, no label leakage"
+}
