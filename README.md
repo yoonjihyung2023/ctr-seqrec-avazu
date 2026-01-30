@@ -6,20 +6,20 @@
 ## 10초 핵심 (면접관이 제일 보고 싶은 것)
 - ✅ 미래 데이터 금지: time-based split
 - ✅ 치팅 방지 확인: label shuffle 하면 AUC ≈ 0.50 (정상)
-- ✅ 재현 가능: `run_all.py` 한 방 실행 + `reports/metrics.json` 결과 저장
-- ✅ Reproduce: `python run_all.py` → `reports/metrics.json`
+- ✅ 재현 가능: `py -V:ContinuumAnalytics/Anaconda38-64 -m src.run` → `reports/metrics.json`
 
 ## 현재 확실히 공개 가능한 결과
 - ✅ `label_shuffle_auc = 0.50`  (라벨을 섞으면 동전 수준이 나와야 정상)
+- ✅ test_auc = 0.50, test_logloss = 0.9339 (demo run 결과)
 
 > 성능 숫자(AUC/LogLoss)는 “확실한 값”만 올립니다.  
 > 너무 완벽한 값(AUC 1.0 / LogLoss 0.0)은 누수/버그로 오해받기 쉬워서  
 > 검증 완료 전에는 메인에 두지 않습니다.
 
 ## 실행 (2줄)
-```bash
-pip install -r requirements.txt
-python run_all.py
+```powershell
+py -V:ContinuumAnalytics/Anaconda38-64 -m src.run
+type .\reports\metrics.json
 ```
 
 ## 데이터
@@ -33,9 +33,9 @@ Avazu Click-Through Rate Prediction (Kaggle)
 
 ```json
 {
-  "label_shuffle_auc": 0.50,
-  "test_auc": null,
-  "test_logloss": null
+  "test_auc": 0.5,
+  "test_logloss": 0.9339,
+  "label_shuffle_auc": 0.5
 }
 ```
 
@@ -46,3 +46,6 @@ Avazu Click-Through Rate Prediction (Kaggle)
 
 ## 다음 작업 (짧게)
 - metric 계산/저장 검증 완료 후 `test_auc`, `test_logloss` 업데이트
+
+## One-line summary
+Demo pipeline for CTR/SeqRec evaluation with leakage sanity-check (label shuffle).
