@@ -27,6 +27,7 @@ jobs:
       - name: Run pipeline and check artifact
         run: |
           python -m src.run
+          ls -la reports || true
           test -f reports/metrics.json
           cat reports/metrics.json
 
