@@ -14,14 +14,12 @@ def main():
 
     metrics_path = reports / "metrics.json"
 
-    # 1) 이미 있으면 그대로 사용 (재현/제출용)
     if metrics_path.exists():
         metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
     else:
-        # 2) 없으면 기본 metrics 생성 (smoke test용)
         metrics = DEFAULT_METRICS
         metrics_path.write_text(
-            json.dumps(metrics, indent=2, ensure_ascii=False) + "\n",
+            json.dumps(metrics, indent=2) + "\n",
             encoding="utf-8"
         )
 
