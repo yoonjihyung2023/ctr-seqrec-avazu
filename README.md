@@ -1,5 +1,12 @@
 # ctr-seqrec-avazu — Avazu CTR 예측 (SeqRec + Leakage-safe)
 
+## Quickstart (Windows PowerShell)
+```powershell
+pip install -r requirements.txt
+python run_all.py
+type reports\metrics.json
+```
+
 ## 한 줄
 3줄만 실행하면 `reports/metrics.json`이 생성되는 **재현 가능한** CTR/SeqRec 평가 파이프라인입니다.  
 “사람이 클릭할지”를 예측하고, **시간 기준 split(미래 금지)** 으로 **데이터 누수 없이** 평가합니다.
