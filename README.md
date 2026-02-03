@@ -7,6 +7,16 @@ python run_all.py
 type reports\metrics.json
 ```
 
+## Note on results (논문 vs repo)
+
+**KR**
+- `reports/metrics.json`은 **공개 가능한 최소 데모(재현 + 누수 sanity check)** 실행 결과입니다(`label_shuffle_auc` 포함).
+- 논문 점수는 당시의 데이터 접근/전처리/컴퓨트/튜닝 세팅에 의존해, 동일 조건 재현은 **본 공개 데모와 분리**했습니다.
+
+**EN**
+- `reports/metrics.json` is a **reproducible demo run output** for this public pipeline (includes a leakage sanity check via `label_shuffle_auc`).
+- Thesis-reported scores relied on different data access / preprocessing / compute & tuning settings, so exact reproduction is **separated from this minimal public demo**.
+
 ## 한 줄
 3줄만 실행하면 `reports/metrics.json`이 생성되는 **재현 가능한** CTR/SeqRec 평가 파이프라인입니다.  
 “사람이 클릭할지”를 예측하고, **시간 기준 split(미래 금지)** 으로 **데이터 누수 없이** 평가합니다.
@@ -18,7 +28,7 @@ type reports\metrics.json
 
 ## 현재 확실히 공개 가능한 결과
 - ✅ `label_shuffle_auc = 0.50` (라벨을 섞으면 동전 수준이 나와야 정상)
-- ✅ `test_auc = 0.50`, `test_logloss = 0.9339` (데모 실행 결과)
+- ✅ `test_auc = 0.50`, `test_logloss = 0.9339` (데모 실행 결과 / minimal demo)
 
 > 성능 숫자(AUC/LogLoss)는 “검증된 값”만 올립니다.  
 > 너무 완벽한 값(AUC 1.0 / LogLoss 0.0)은 누수/버그로 오해받기 쉬워서  
@@ -38,7 +48,7 @@ cat reports/metrics.json
 ### Windows
 ```powershell
 pip install -r requirements.txt
-py -m src.run
+python -m src.run
 type .\reports\metrics.json
 ```
 
