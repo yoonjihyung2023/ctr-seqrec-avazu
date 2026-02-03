@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  run:
+  install-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,16 +15,23 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
 
-      - name: Run
+      - name: Run pipeline (smoke)
         run: |
-          python src/run.py
+          python run_all.py
 
-      - name: Show metrics
+      - name: Show metrics.json
         run: |
           ls -la reports || true
-          cat reports/metrics.json || true
+          test -f reports/metrics.json
+          cat reports/metrics.json
+
+      - name: Upload metrics artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: metrics
+          path: reports/metrics.json
