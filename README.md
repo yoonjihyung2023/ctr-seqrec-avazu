@@ -1,5 +1,7 @@
 # ctr-seqrec-avazu — Avazu CTR 예측 (SeqRec + Leakage-safe)
 
+Minimal runnable CTR/SeqRec evaluation demo with leakage-safe sanity check.
+
 ## Quickstart (Windows PowerShell)
 ```powershell
 pip install -r requirements.txt
