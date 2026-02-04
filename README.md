@@ -3,9 +3,10 @@
 ## Quickstart (Windows PowerShell)
 ```powershell
 pip install -r requirements.txt
-python run_all.py
-type reports\metrics.json
+python -m src.run
+type .\reports\metrics.json
 ```
+Expected: prints `DONE: {...}` and creates `reports/metrics.json`.
 
 ## Note on results (논문 vs repo)
 
@@ -34,7 +35,7 @@ type reports\metrics.json
 > 너무 완벽한 값(AUC 1.0 / LogLoss 0.0)은 누수/버그로 오해받기 쉬워서  
 > **검증 완료 전에는 메인에 올리지 않습니다.**
 
-## 설치 + 실행 (3줄)
+## How to run (Mac/Linux/Windows)
 - ✅ 3줄 실행만으로 재현 가능(결과가 `reports/metrics.json`에 저장됨)
 - ✅ 권장: Python 3.10+ (예: `python --version` 으로 확인)
 
@@ -52,10 +53,13 @@ python -m src.run
 type .\reports\metrics.json
 ```
 
-✅ 중요: 이 실행은 “누수 방지 검사(`label shuffle`)”도 같이 돌도록 되어 있으며, `label_shuffle_auc ≈ 0.50`이 같이 나오면 “치팅 없이 평가했다”는 최소 신뢰가 생깁니다.
+✅ 중요: 이 실행은 “누수 방지 검사(`label shuffle`)”도 같이 돌도록 되어 있으며,  
+`label_shuffle_auc ≈ 0.50`이 같이 나오면 “치팅 없이 평가했다”는 최소 신뢰가 생깁니다.
 
 ## 데이터
 Avazu Click-Through Rate Prediction (Kaggle)
+
+This public demo does not require the Kaggle dataset; it generates a minimal reproducible output for the pipeline/metrics format.
 
 ## 결과 파일
 - `reports/metrics.json`
