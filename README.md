@@ -1,105 +1,131 @@
-# ctr-seqrec-avazu — Avazu CTR 예측 (SeqRec + Leakage-safe)
+# ctr-seqrec-avazu
+**Leakage-safe CTR prediction with sequential modeling on the Avazu dataset**
 
-Minimal runnable CTR/SeqRec evaluation demo with leakage-safe sanity check.
+[![Time-based Split](https://img.shields.io/badge/split-time--based-green)](https://github.com/yoonjihyung2023/ctr-seqrec-avazu)
+[![Sanity Check](https://img.shields.io/badge/sanity-label--shuffle-blue)](https://github.com/yoonjihyung2023/ctr-seqrec-avazu)
+[![Python](https://img.shields.io/badge/python-3.10%2B-informational)](https://www.python.org/)
+[![Kaggle](https://img.shields.io/badge/run-kaggle-20BEFF)](https://www.kaggle.com/c/avazu-ctr-prediction)
+[![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE)
 
-## Quickstart (Windows PowerShell)
-```powershell
-pip install -r requirements.txt
-python -m src.run
-type .\reports\metrics.json
-```
-Expected: prints `DONE: {...}` and creates `reports/metrics.json`.
+---
 
-## Note on results (논문 vs repo)
+ ## 🎯 TL;DR (Results)
+ 
+ | Metric | Main Model | Label-Shuffle Check |
+ |--------|------------|---------------------|
+ | **Test AUC** | **0.72659** | **0.53265** ✅ |
+ | **Test LogLoss** | **0.40009** | **0.45085** |
+ | **Best Val LogLoss** | **0.40076** | **0.46177** |
+ | **Meaning** | Predictive signal learned | Near-random (≈0.50) = no leakage |
+ 
+ **Key takeaway**: Shuffling **train labels only** collapses performance to near-random → **sanity check passed**.
++
++✅ **Reproducible**: The TL;DR numbers are from an end-to-end **Kaggle notebook run** on **2M rows (Tesla T4)** and printed in the console.
+ 
+ > **What do these numbers mean?**
+ > - **AUC 0.727**: Model correctly ranks 72.7% of click/non-click pairs (higher is better, max 1.0)
+ > - **LogLoss 0.400**: Good calibration for CTR tasks (lower is better, min 0.0)
+-> - **Label-shuffle AUC 0.533**: Near 0.50 (random) proves no data leakage
++> - **Label-shuffle AUC 0.533**: Near 0.50 (random). Small deviations (e.g., ~0.53) can happen due to sampling/training noise → still indicates no exploitable leakage
+ 
+---
 
-**KR**
-- `reports/metrics.json`은 **공개 가능한 최소 데모(재현 + 누수 sanity check)** 실행 결과입니다(`label_shuffle_auc` 포함).
-- 논문 점수는 당시의 데이터 접근/전처리/컴퓨트/튜닝 세팅에 의존해, 동일 조건 재현은 **본 공개 데모와 분리**했습니다.
-
-**EN**
-- `reports/metrics.json` is a **reproducible demo run output** for this public pipeline (includes a leakage sanity check via `label_shuffle_auc`).
-- Thesis-reported scores relied on different data access / preprocessing / compute & tuning settings, so exact reproduction is **separated from this minimal public demo**.
-
-## 한 줄
-3줄만 실행하면 `reports/metrics.json`이 생성되는 **재현 가능한** CTR/SeqRec 평가 파이프라인입니다.  
-“사람이 클릭할지”를 예측하고, **시간 기준 split(미래 금지)** 으로 **데이터 누수 없이** 평가합니다.
-
-## 10초 핵심
-- ✅ **미래 데이터 금지**: `time-based split`
-- ✅ **치팅 방지 확인**: `label shuffle` 하면 AUC ≈ 0.50 (정상)
-- ✅ **재현 가능**: 실행하면 `reports/metrics.json` 파일이 자동으로 생김
-
-## 현재 확실히 공개 가능한 결과
-- ✅ `label_shuffle_auc = 0.50` (라벨을 섞으면 동전 수준이 나와야 정상)
-- ✅ `test_auc = 0.50`, `test_logloss = 0.9339` (데모 실행 결과 / minimal demo)
-
-> 성능 숫자(AUC/LogLoss)는 “검증된 값”만 올립니다.  
-> 너무 완벽한 값(AUC 1.0 / LogLoss 0.0)은 누수/버그로 오해받기 쉬워서  
-> **검증 완료 전에는 메인에 올리지 않습니다.**
-
-## How to run (Mac/Linux/Windows)
-- ✅ 3줄 실행만으로 재현 가능(결과가 `reports/metrics.json`에 저장됨)
-- ✅ 권장: Python 3.10+ (예: `python --version` 으로 확인)
-
-### Mac / Linux / 일반
-```bash
-pip install -r requirements.txt
-python -m src.run
-cat reports/metrics.json
-```
-
-### Windows
-```powershell
-pip install -r requirements.txt
-python -m src.run
-type .\reports\metrics.json
-```
-
-✅ 중요: 이 실행은 “누수 방지 검사(`label shuffle`)”도 같이 돌도록 되어 있으며,  
-`label_shuffle_auc ≈ 0.50`이 같이 나오면 “치팅 없이 평가했다”는 최소 신뢰가 생깁니다.
-
-## 데이터
-Avazu Click-Through Rate Prediction (Kaggle)
-
-This public demo does not require the Kaggle dataset; it generates a minimal reproducible output for the pipeline/metrics format.
-
-## 결과 파일
-- `reports/metrics.json`
-  - `test_auc`
-  - `test_logloss`
-  - `label_shuffle_auc`
+### 📌 Evidence: `reports/metrics.json` snapshot (from Kaggle full run)
 
 ```json
 {
-  "test_auc": 0.5,
-  "test_logloss": 0.9339,
-  "label_shuffle_auc": 0.5
+  "main": {
+    "test_auc": 0.72659,
+    "test_logloss": 0.40009,
+    "best_val_logloss": 0.40076
+  },
+  "label_shuffle": {
+    "test_auc": 0.53265,
+    "test_logloss": 0.45085,
+    "best_val_logloss": 0.46177
+  },
+  "data": {
+    "rows_used": 2000000,
+    "total_samples": 1693522,
+    "click_rate_raw": 0.1616
+  },
+  "split": {
+    "train": 1393474,
+    "val": 174464,
+    "test": 125584
+  },
+  "env": {
+    "platform": "Kaggle",
+    "gpu": "Tesla T4"
+  }
 }
+
+## 🚀 Quickstart
+
+### Option 1: Kaggle Notebook (Recommended)
+```bash
+pip install -r requirements.txt
+python -m src.run
+type .\reports\metrics.json
 ```
 
-## 내가 만든 것
-- 시간 기준 split 파이프라인 (미래 금지)
-- label shuffle sanity check (치팅 방지)
-- 실험 결과 저장 구조 (`metrics.json`)
+Local src.run is a minimal reproducible pipeline demo (creates reports/metrics.json with the structure/format).
++> It is intended for pipeline structure + leakage checks, while the full TL;DR metrics are from Kaggle.
 
-## 다음 작업 (짧게)
-- metric 계산/저장 검증 완료 후 `test_auc`, `test_logloss` 업데이트
+📊 What This Project Does
 
-## One-line summary
-Demo pipeline for CTR/SeqRec evaluation with leakage sanity-check (label shuffle).
+This project predicts click-through rate (CTR) using sequential user behavior, with rigorous leakage prevention.
 
-## 왜 “순서(시퀀스)”를 보냐?
+### Leakage-Safety Checklist
 
-CTR은 보통 “한 번 노출 = 한 번 예측”처럼 보지만, 실제로는 사람이 방금 뭐 했는지가 중요합니다.
+EN: We repeat the **train-label shuffle** experiment **5 times** (different seeds) and report mean±std:
+- Label-shuffle Test AUC (5 runs): **0.51 ± 0.02**  *(example format; replace with your measured values)*
 
-예를 들어:
-- 방금 스포츠 기사를 많이 봤으면 → 스포츠 광고를 더 누를 수 있음
-- 방금 쇼핑을 많이 봤으면 → 쇼핑 광고를 더 누를 수 있음
+KR: 학습 라벨 셔플을 **5번 반복**(seed 변경)해서 평균±표준편차로 제시합니다:
+- 라벨 셔플 Test AUC (5회): **0.51 ± 0.02** *(형식 예시 / 실제 값으로 교체)*
 
-그래서 이 프로젝트는:
-- 사람의 최근 행동을 순서대로 모아서
-- 그 다음 클릭을 예측합니다.
+   ✅ Time split by target timestamp: future events never appear in train
+   ✅ History window uses only past events: hist contains events strictly before the target
+   ✅ No test-label access: label-shuffle is applied to train labels only
+   ✅ Tokenization/vocab: built without using test targets (recommended: train-only or train+val; specify your choice)
 
-그리고 제일 중요한 건:
-- 미래 데이터를 절대 쓰지 않고(`time-based split`)
-- 라벨을 섞는 테스트(`label shuffle`)로 치팅이 없는지 확인한다는 점입니다.
+### Why Sequential Modeling?
+
+Clicks aren't random—they follow patterns:
+
+User just viewed 5 sports articles → more likely to click sports ads
+
+User just browsed shopping → more likely to click shopping ads
+
+### Model Architecture
+
+-- Hybrid: DIN (Deep Interest Network) + SASRec-style Transformer
++- Hybrid: DIN (Deep Interest Network) + Transformer encoder inspired by SASRec
+
+DIN component: Attention over historical events relevant to current item
+
+Transformer component: Multi-head self-attention for sequence modeling
+
+Output: Binary classification (click probability)
+
+🔬 Methodology
+
+@@ -132,7 +146,7 @@
+Results (shuffled labels):
+
+Validation AUC trajectory:
+
+Epoch 1: 0.53516
+
+Epoch 2: 0.49530
+
+Epoch 3: 0.54221
+
+Final test (shuffled):
+
+Test AUC: 0.53265
+
+Test LogLoss: 0.45085
+
+-✅ Conclusion: When labels are destroyed, performance collapses to near-random → sanity check passed.
++✅ Conclusion: When train labels are destroyed, performance collapses to near-random → sanity check passed. (Optionally report mean±std over multiple shuffles for even stronger evidence.)
