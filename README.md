@@ -9,25 +9,19 @@
 
 ---
 
- ## 🎯 TL;DR (Results)
- 
- | Metric | Main Model | Label-Shuffle Check |
- |--------|------------|---------------------|
- | **Test AUC** | **0.72659** | **0.53265** ✅ |
- | **Test LogLoss** | **0.40009** | **0.45085** |
- | **Best Val LogLoss** | **0.40076** | **0.46177** |
- | **Meaning** | Predictive signal learned | Near-random (≈0.50) = no leakage |
- 
- **Key takeaway**: Shuffling **train labels only** collapses performance to near-random → **sanity check passed**.
-+
-+✅ **Reproducible**: The TL;DR numbers are from an end-to-end **Kaggle notebook run** on **2M rows (Tesla T4)** and printed in the console.
- 
- > **What do these numbers mean?**
- > - **AUC 0.727**: Model correctly ranks 72.7% of click/non-click pairs (higher is better, max 1.0)
- > - **LogLoss 0.400**: Good calibration for CTR tasks (lower is better, min 0.0)
--> - **Label-shuffle AUC 0.533**: Near 0.50 (random) proves no data leakage
-+> - **Label-shuffle AUC 0.533**: Near 0.50 (random). Small deviations (e.g., ~0.53) can happen due to sampling/training noise → still indicates no exploitable leakage
- 
+## 🎯 Results
+
+| Metric | Main Model | Label-Shuffle Sanity Check (train labels only) |
+|--------|------------|-----------------------------------------------|
+| **Test AUC** | **0.72659** | **0.53265** ✅ |
+| **Test LogLoss** | **0.40009** | **0.45085** |
+| **Meaning** | Strong predictive signal | Near-random → sanity check passed |
+
+✅ **Reproducible**: Results obtained from an end-to-end **Kaggle run** (2M rows, **Tesla T4**).
+
+**Leakage verification**: Shuffling **train labels only** collapses performance toward random → **sanity check passed** ✅  
+*(Small deviations like ~0.53 can occur due to sampling/training noise and early stopping.)*
+
 ---
 
 ### 📌 Evidence: `reports/metrics.json` snapshot (from Kaggle full run)
@@ -56,76 +50,105 @@
   },
   "env": {
     "platform": "Kaggle",
-    "gpu": "Tesla T4"
+    "gpu": "Tesla T4",
+    "cuda": true
   }
 }
+```
 
 ## 🚀 Quickstart
 
-### Option 1: Kaggle Notebook (Recommended)
+### Kaggle Notebook (Recommended for full results)
+1. Create a Kaggle Notebook
+2. Attach dataset: `avazu-ctr-prediction`
+3. Run the cells
+4. View results in the console (and optionally save to `reports/metrics.json`)
+
+### Local (minimal demo: pipeline structure + leakage checks)
+
+**Mac/Linux:**
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+```
+
+**Windows PowerShell:**
 ```bash
 pip install -r requirements.txt
 python -m src.run
 type .\reports\metrics.json
 ```
 
-Local src.run is a minimal reproducible pipeline demo (creates reports/metrics.json with the structure/format).
-+> It is intended for pipeline structure + leakage checks, while the full TL;DR metrics are from Kaggle.
+## 📊 What This Does
 
-📊 What This Project Does
+- Predicts click-through rate (CTR) using sequential user behavior modeling.
 
-This project predicts click-through rate (CTR) using sequential user behavior, with rigorous leakage prevention.
+Why sequential? Clicks follow patterns:
 
-### Leakage-Safety Checklist
+- Just viewed sports articles → more likely to click sports ads
+- Just browsed shopping → more likely to click shopping ads
 
-EN: We repeat the **train-label shuffle** experiment **5 times** (different seeds) and report mean±std:
-- Label-shuffle Test AUC (5 runs): **0.51 ± 0.02**  *(example format; replace with your measured values)*
+Pipeline
 
-KR: 학습 라벨 셔플을 **5번 반복**(seed 변경)해서 평균±표준편차로 제시합니다:
-- 라벨 셔플 Test AUC (5회): **0.51 ± 0.02** *(형식 예시 / 실제 값으로 교체)*
+- Tokenize events (18 features per event, vocab: 9,664)
+- Build user sequences by device_id (~163K users)
+- Time-based split (train uses only past data)
+- Train hybrid DIN + Transformer (inspired by SASRec) model
+- Verify with label-shuffle sanity check
 
-   ✅ Time split by target timestamp: future events never appear in train
-   ✅ History window uses only past events: hist contains events strictly before the target
-   ✅ No test-label access: label-shuffle is applied to train labels only
-   ✅ Tokenization/vocab: built without using test targets (recommended: train-only or train+val; specify your choice)
+Dataset: Avazu CTR (2M rows, ~1.69M samples, ~16.8% positive ratio)
 
-### Why Sequential Modeling?
+## 🔒 Leakage Prevention
+### Time-based Split
 
-Clicks aren't random—they follow patterns:
+- Train (past) → Val → Test (future)
+- Split by target timestamp → no future data in training.
 
-User just viewed 5 sports articles → more likely to click sports ads
+### Label-Shuffle Sanity Check
 
-User just browsed shopping → more likely to click shopping ads
+- Shuffle train labels only (corrupt the signal)
+- Train model on corrupted labels
+- Expected: AUC ≈ 0.50 (random)
+- Observed: AUC 0.53265 ✅
 
-### Model Architecture
+If leakage existed, the model could still perform well despite shuffled labels.
 
--- Hybrid: DIN (Deep Interest Network) + SASRec-style Transformer
-+- Hybrid: DIN (Deep Interest Network) + Transformer encoder inspired by SASRec
+## 📖 Citation
+```bibtex
+@misc{ctr-seqrec-avazu,
+  title={Leakage-safe CTR Prediction with Sequential Modeling},
+  author={Jihyung Yoon},
+  year={2026},
+  publisher={GitHub},
+  url={https://github.com/yoonjihyung2023/ctr-seqrec-avazu}
+}
+```
 
-DIN component: Attention over historical events relevant to current item
+## 📄 License
+MIT License
 
-Transformer component: Multi-head self-attention for sequence modeling
+## 🌏 한국어
+<details>
+<summary>클릭하여 보기</summary>
 
-Output: Binary classification (click probability)
+### 결과
 
-🔬 Methodology
+본 모델: Test AUC 0.72659 / LogLoss 0.40009
 
-@@ -132,7 +146,7 @@
-Results (shuffled labels):
+라벨 셔플(학습 라벨만): Test AUC 0.53265 / LogLoss 0.45085 (≈0.50)
 
-Validation AUC trajectory:
+### 핵심
 
-Epoch 1: 0.53516
+시퀀스 기반 CTR 예측 + 시간 분할로 미래 데이터 차단 + 학습 라벨 셔플로 누수 검증
 
-Epoch 2: 0.49530
+### 실행
 
-Epoch 3: 0.54221
+Kaggle(권장): 노트북 생성 → avazu-ctr-prediction attach → 실행 → 콘솔 결과 확인
 
-Final test (shuffled):
-
-Test AUC: 0.53265
-
-Test LogLoss: 0.45085
-
--✅ Conclusion: When labels are destroyed, performance collapses to near-random → sanity check passed.
-+✅ Conclusion: When train labels are destroyed, performance collapses to near-random → sanity check passed. (Optionally report mean±std over multiple shuffles for even stronger evidence.)
+### 로컬(데모)
+```bash
+pip install -r requirements.txt
+python -m src.run
+```
+</details> 
