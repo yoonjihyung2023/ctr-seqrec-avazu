@@ -64,7 +64,7 @@
 3. Run the cells
 4. View results in the console (and optionally save to `reports/metrics.json`)
 
-### Local (minimal demo: pipeline structure + leakage checks)
+### Local (demo only: structure + leakage checks; numbers differ vs Kaggle full run)
 
 **Mac/Linux:**
 ```bash
@@ -74,7 +74,7 @@ cat reports/metrics.json
 ```
 
 **Windows PowerShell:**
-```bash
+```powershell
 pip install -r requirements.txt
 python -m src.run
 type .\reports\metrics.json
@@ -133,22 +133,26 @@ MIT License
 <summary>클릭하여 보기</summary>
 
 ### 결과
-
-본 모델: Test AUC 0.72659 / LogLoss 0.40009
-
+본 모델: Test AUC 0.72659 / LogLoss 0.40009  
 라벨 셔플(학습 라벨만): Test AUC 0.53265 / LogLoss 0.45085 (≈0.50)
 
 ### 핵심
-
 시퀀스 기반 CTR 예측 + 시간 분할로 미래 데이터 차단 + 학습 라벨 셔플로 누수 검증
 
 ### 실행
-
 Kaggle(권장): 노트북 생성 → avazu-ctr-prediction attach → 실행 → 콘솔 결과 확인
 
-### 로컬(데모)
+### Windows PowerShell(데모)
+```powershell
+pip install -r requirements.txt
+python -m src.run
+type .\reports\metrics.json
+```
+
+### 로컬(데모: Mac/Linux)
 ```bash
 pip install -r requirements.txt
 python -m src.run
+cat reports/metrics.json
 ```
 </details> 
