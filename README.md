@@ -79,6 +79,11 @@ pip install -r requirements.txt
 python -m src.run
 type .\reports\metrics.json
 ```
+**Expected output example (local demo / smoke test):**
+```json
+{"test_auc": 0.5, "test_logloss": 0.9339, "label_shuffle_auc": 0.5}
+
+- Note: Local demo numbers are for verifying the pipeline + leakage check only (not comparable to Kaggle full run).
 
 ## 📊 What This Does
 
