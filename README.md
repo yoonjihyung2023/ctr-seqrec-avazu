@@ -1,4 +1,12 @@
 # ctr-seqrec-avazu
+✅ Run in 3 lines → creates `reports/metrics.json`  
+✅ Time-based split (no future leakage)  
+✅ Label-shuffle sanity check (AUC ≈ 0.50)  
+✅ Proof: `python -m src.run` prints DONE + metrics.json is generated  
+✅ CI: GitHub Actions runs the same pipeline
+✅ Kaggle full-run proof: [Notebook](https://www.kaggle.com/code/yoonjihyung/notebook260213/edit) + `reports/metrics.json` snapshot
+✅ Local proof (smoke test): `DONE: {'test_auc': 0.5, 'test_logloss': 0.9339, 'label_shuffle_auc': 0.5}`
+
 **Leakage-safe CTR prediction with sequential modeling on the Avazu dataset**
 
 [![Time-based Split](https://img.shields.io/badge/split-time--based-green)](https://github.com/yoonjihyung2023/ctr-seqrec-avazu)
@@ -67,7 +75,9 @@
 3. Run the cells
 4. View results in the console (and optionally save to `reports/metrics.json`)
 
-### Local (demo only: structure + leakage checks; numbers differ vs Kaggle full run)
+### Local (Smoke test only: verifies pipeline runs + creates `reports/metrics.json`)
+> This local run is **NOT** the full Avazu training result.  
+> It is a **smoke test** to prove reproducibility + leakage checks (AUC may be ~0.50).
 
 **Mac/Linux:**
 ```bash
@@ -89,7 +99,7 @@ py -m src.run
 type .\reports\metrics.json
 ```
 
-**Expected output example (local demo / smoke test):**
+**Expected output (local smoke test):** AUC ≈ 0.50 is OK here (demo run).
 ```json
 {"test_auc": 0.5, "test_logloss": 0.9339, "label_shuffle_auc": 0.5}
 ```
