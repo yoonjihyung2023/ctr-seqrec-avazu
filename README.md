@@ -11,6 +11,9 @@
 
 ## 🎯 Results
 
+**Final model (1-line):** DIN-style feature interaction + Transformer-based sequence encoder (SASRec-inspired) for leakage-safe CTR prediction.  
+**최종 모델(한 줄):** DIN 기반 feature interaction + Transformer 시퀀스 인코더(SASRec 아이디어)로 CTR을 예측하고, time-split으로 누수 없이 평가합니다.
+
 | Metric | Main Model | Label-Shuffle Sanity Check (train labels only) |
 |--------|------------|-----------------------------------------------|
 | **Test AUC** | **0.72659** | **0.53265** ✅ |
@@ -74,14 +77,22 @@ cat reports/metrics.json
 ```
 
 **Windows PowerShell:**
+**One-liner:**
 ```powershell
-pip install -r requirements.txt
-python -m src.run
+py -m pip install -r requirements.txt; py -m src.run; type .\reports\metrics.json
+```
+
+**Step-by-step:**
+```powershell
+py -m pip install -r requirements.txt
+py -m src.run
 type .\reports\metrics.json
 ```
+
 **Expected output example (local demo / smoke test):**
 ```json
 {"test_auc": 0.5, "test_logloss": 0.9339, "label_shuffle_auc": 0.5}
+```
 
 - Note: Local demo numbers are for verifying the pipeline + leakage check only (not comparable to Kaggle full run).
 
@@ -95,11 +106,10 @@ Why sequential? Clicks follow patterns:
 - Just browsed shopping → more likely to click shopping ads
 
 Pipeline
-
 - Tokenize events (18 features per event, vocab: 9,664)
 - Build user sequences by device_id (~163K users)
 - Time-based split (train uses only past data)
-- Train hybrid DIN + Transformer (inspired by SASRec) model
+- Train hybrid DIN + Transformer (SASRec-inspired)
 - Verify with label-shuffle sanity check
 
 Dataset: Avazu CTR (2M rows, ~1.69M samples, ~16.8% positive ratio)
@@ -149,8 +159,8 @@ Kaggle(권장): 노트북 생성 → avazu-ctr-prediction attach → 실행 → 
 
 ### Windows PowerShell(데모)
 ```powershell
-pip install -r requirements.txt
-python -m src.run
+py -m pip install -r requirements.txt
+py -m src.run
 type .\reports\metrics.json
 ```
 
