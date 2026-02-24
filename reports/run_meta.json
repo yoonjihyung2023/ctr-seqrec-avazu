@@ -1,0 +1,8 @@
+﻿{
+  "timestamp": "2026-02-24",
+  "git_commit": "TEMP",
+  "python": "3.10+",
+  "platform": "Windows/Kaggle",
+  "seed": 42,
+  "command": "python -m src.run"
+}

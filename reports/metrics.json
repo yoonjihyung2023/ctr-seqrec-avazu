@@ -1,5 +1,8 @@
 {
-  "test_auc": 0.5,
-  "test_logloss": 0.9339,
-  "label_shuffle_auc": 0.5
+  "seq_len": 50,
+  "test_auc": 0.553399,
+  "test_logloss": 0.688647,
+  "label_shuffle_auc": 0.503928,
+  "runtime_sec": 0.0056,
+  "note": "synthetic quick experiment to validate weekly loop; extend to Avazu/Kaggle later"
 }
