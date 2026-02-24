@@ -1,7 +1,7 @@
 ﻿# ctr-seqrec-avazu
 ??Run in 3 lines ??creates `reports/metrics.json`  
 ??Time-based split (no future leakage)  
-??Label-shuffle sanity check (AUC ??0.50)  
+??Label-shuffle sanity check (AUC about 0.50)  
 ??Proof: `python -m src.run` prints DONE + metrics.json is generated  
 ??CI: GitHub Actions runs the same pipeline
 ??Kaggle full-run proof: [Notebook](https://www.kaggle.com/code/yoonjihyung/notebook260213/edit) + `reports/metrics.json` snapshot
@@ -99,7 +99,7 @@ py -m src.run
 type .\reports\metrics.json
 ```
 
-**Expected output (local smoke test):** AUC ??0.50 is OK here (demo run).
+**Expected output (local smoke test):** AUC about 0.50 is OK here (demo run).
 ```json
 {"test_auc": 0.5, "test_logloss": 0.9339, "label_shuffle_auc": 0.5}
 ```
@@ -127,15 +127,15 @@ Dataset: Avazu CTR (2M rows, ~1.69M samples, ~16.8% positive ratio)
 ## Leakage Prevention
 ### Time-based Split
 
-- Train (past) ??Val ??Test (future)
+- Train (past) -> Val -> Test (future)
 - Split by target timestamp ??no future data in training.
 
 ### Label-Shuffle Sanity Check
 
 - Shuffle train labels only (corrupt the signal)
 - Train model on corrupted labels
-- Expected: AUC ??0.50 (random)
-- Observed: AUC 0.53265 ??
+- Expected: AUC about 0.50 (random)
+- Observed: AUC 0.53265 (local)
 
 If leakage existed, the model could still perform well despite shuffled labels.
 
@@ -158,6 +158,7 @@ MIT License
 - Interview Q&A: [docs/interview_qa.md](docs/interview_qa.md)
 - Serving demo: [docs/serving_demo.md](docs/serving_demo.md) (FastAPI repo: [ctr-api](https://github.com/yoonjihyung2023/ctr-api))
 - Repro outputs: [reports/metrics.json](reports/metrics.json) + [reports/run_meta.json](reports/run_meta.json)
+
 
 
 
