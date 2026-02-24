@@ -1,11 +1,11 @@
-# ctr-seqrec-avazu
-✅ Run in 3 lines → creates `reports/metrics.json`  
-✅ Time-based split (no future leakage)  
-✅ Label-shuffle sanity check (AUC ≈ 0.50)  
-✅ Proof: `python -m src.run` prints DONE + metrics.json is generated  
-✅ CI: GitHub Actions runs the same pipeline
-✅ Kaggle full-run proof: [Notebook](https://www.kaggle.com/code/yoonjihyung/notebook260213/edit) + `reports/metrics.json` snapshot
-✅ Local proof (smoke test): `DONE: {'test_auc': 0.5, 'test_logloss': 0.9339, 'label_shuffle_auc': 0.5}`
+﻿# ctr-seqrec-avazu
+??Run in 3 lines ??creates `reports/metrics.json`  
+??Time-based split (no future leakage)  
+??Label-shuffle sanity check (AUC ??0.50)  
+??Proof: `python -m src.run` prints DONE + metrics.json is generated  
+??CI: GitHub Actions runs the same pipeline
+??Kaggle full-run proof: [Notebook](https://www.kaggle.com/code/yoonjihyung/notebook260213/edit) + `reports/metrics.json` snapshot
+??Local proof (smoke test): `DONE: {'test_auc': 0.5, 'test_logloss': 0.9339, 'label_shuffle_auc': 0.5}`
 
 **Leakage-safe CTR prediction with sequential modeling on the Avazu dataset**
 
@@ -17,25 +17,25 @@
 
 ---
 
-## 🎯 Results
+## ?렞 Results
 
 **Final model (1-line):** DIN-style feature interaction + Transformer-based sequence encoder (SASRec-inspired) for leakage-safe CTR prediction.  
-**최종 모델(한 줄):** DIN 기반 feature interaction + Transformer 시퀀스 인코더(SASRec 아이디어)로 CTR을 예측하고, time-split으로 누수 없이 평가합니다.
+**理쒖쥌 紐⑤뜽(??以?:** DIN 湲곕컲 feature interaction + Transformer ?쒗???몄퐫??SASRec ?꾩씠?붿뼱)濡?CTR???덉륫?섍퀬, time-split?쇰줈 ?꾩닔 ?놁씠 ?됯??⑸땲??
 
 | Metric | Main Model | Label-Shuffle Sanity Check (train labels only) |
 |--------|------------|-----------------------------------------------|
-| **Test AUC** | **0.72659** | **0.53265** ✅ |
+| **Test AUC** | **0.72659** | **0.53265** ??|
 | **Test LogLoss** | **0.40009** | **0.45085** |
-| **Meaning** | Strong predictive signal | Near-random → sanity check passed |
+| **Meaning** | Strong predictive signal | Near-random ??sanity check passed |
 
-✅ **Reproducible**: Results obtained from an end-to-end **Kaggle run** (2M rows, **Tesla T4**).
+??**Reproducible**: Results obtained from an end-to-end **Kaggle run** (2M rows, **Tesla T4**).
 
-**Leakage verification**: Shuffling **train labels only** collapses performance toward random → **sanity check passed** ✅  
+**Leakage verification**: Shuffling **train labels only** collapses performance toward random ??**sanity check passed** ?? 
 *(Small deviations like ~0.53 can occur due to sampling/training noise and early stopping.)*
 
 ---
 
-### 📌 Evidence: `reports/metrics.json` snapshot (from Kaggle full run)
+### ?뱦 Evidence: `reports/metrics.json` snapshot (from Kaggle full run)
 
 ```json
 {
@@ -67,7 +67,7 @@
 }
 ```
 
-## 🚀 Quickstart
+## ?? Quickstart
 
 ### Kaggle Notebook (Recommended for full results)
 1. Create a Kaggle Notebook
@@ -99,21 +99,21 @@ py -m src.run
 type .\reports\metrics.json
 ```
 
-**Expected output (local smoke test):** AUC ≈ 0.50 is OK here (demo run).
+**Expected output (local smoke test):** AUC ??0.50 is OK here (demo run).
 ```json
 {"test_auc": 0.5, "test_logloss": 0.9339, "label_shuffle_auc": 0.5}
 ```
 
 - Note: Local demo numbers are for verifying the pipeline + leakage check only (not comparable to Kaggle full run).
 
-## 📊 What This Does
+## ?뱤 What This Does
 
 - Predicts click-through rate (CTR) using sequential user behavior modeling.
 
 Why sequential? Clicks follow patterns:
 
-- Just viewed sports articles → more likely to click sports ads
-- Just browsed shopping → more likely to click shopping ads
+- Just viewed sports articles ??more likely to click sports ads
+- Just browsed shopping ??more likely to click shopping ads
 
 Pipeline
 - Tokenize events (18 features per event, vocab: 9,664)
@@ -124,22 +124,22 @@ Pipeline
 
 Dataset: Avazu CTR (2M rows, ~1.69M samples, ~16.8% positive ratio)
 
-## 🔒 Leakage Prevention
+## ?뵏 Leakage Prevention
 ### Time-based Split
 
-- Train (past) → Val → Test (future)
-- Split by target timestamp → no future data in training.
+- Train (past) ??Val ??Test (future)
+- Split by target timestamp ??no future data in training.
 
 ### Label-Shuffle Sanity Check
 
 - Shuffle train labels only (corrupt the signal)
 - Train model on corrupted labels
-- Expected: AUC ≈ 0.50 (random)
-- Observed: AUC 0.53265 ✅
+- Expected: AUC ??0.50 (random)
+- Observed: AUC 0.53265 ??
 
 If leakage existed, the model could still perform well despite shuffled labels.
 
-## 📖 Citation
+## ?뱰 Citation
 ```bibtex
 @misc{ctr-seqrec-avazu,
   title={Leakage-safe CTR Prediction with Sequential Modeling},
@@ -150,31 +150,31 @@ If leakage existed, the model could still perform well despite shuffled labels.
 }
 ```
 
-## 📄 License
+## ?뱞 License
 MIT License
 
-## 🌏 한국어
+## ?뙊 ?쒓뎅??
 <details>
-<summary>클릭하여 보기</summary>
+<summary>?대┃?섏뿬 蹂닿린</summary>
 
-### 결과
-본 모델: Test AUC 0.72659 / LogLoss 0.40009  
-라벨 셔플(학습 라벨만): Test AUC 0.53265 / LogLoss 0.45085 (≈0.50)
+### 寃곌낵
+蹂?紐⑤뜽: Test AUC 0.72659 / LogLoss 0.40009  
+?쇰꺼 ?뷀뵆(?숈뒿 ?쇰꺼留?: Test AUC 0.53265 / LogLoss 0.45085 (??.50)
 
-### 핵심
-시퀀스 기반 CTR 예측 + 시간 분할로 미래 데이터 차단 + 학습 라벨 셔플로 누수 검증
+### ?듭떖
+?쒗??湲곕컲 CTR ?덉륫 + ?쒓컙 遺꾪븷濡?誘몃옒 ?곗씠??李⑤떒 + ?숈뒿 ?쇰꺼 ?뷀뵆濡??꾩닔 寃利?
 
-### 실행
-Kaggle(권장): 노트북 생성 → avazu-ctr-prediction attach → 실행 → 콘솔 결과 확인
+### ?ㅽ뻾
+Kaggle(沅뚯옣): ?명듃遺??앹꽦 ??avazu-ctr-prediction attach ???ㅽ뻾 ??肄섏넄 寃곌낵 ?뺤씤
 
-### Windows PowerShell(데모)
+### Windows PowerShell(?곕え)
 ```powershell
 py -m pip install -r requirements.txt
 py -m src.run
 type .\reports\metrics.json
 ```
 
-### 로컬(데모: Mac/Linux)
+### 濡쒖뺄(?곕え: Mac/Linux)
 ```bash
 pip install -r requirements.txt
 python -m src.run
@@ -182,8 +182,9 @@ cat reports/metrics.json
 ```
 </details> 
 
-## 📌 Evidence (Interview-ready)
+## ?뱦 Evidence (Interview-ready)
 - Leakage checklist: 'docs/leakage_checklist.md'
 - Interview Q&A: 'docs/interview_qa.md'
 - Serving demo: 'docs/serving_demo.md' (FastAPI repo: ctr-api)
 - Repro outputs: 'reports/metrics.json' + 'reports/run_meta.json'
+
