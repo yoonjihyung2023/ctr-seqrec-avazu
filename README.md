@@ -112,8 +112,8 @@ type .\reports\metrics.json
 
 Why sequential? Clicks follow patterns:
 
-- Just viewed sports articles ??more likely to click sports ads
-- Just browsed shopping ??more likely to click shopping ads
+- Just viewed sports articles -> more likely to click sports ads
+- Just browsed shopping -> more likely to click shopping ads
 
 Pipeline
 - Tokenize events (18 features per event, vocab: 9,664)
@@ -128,7 +128,7 @@ Dataset: Avazu CTR (2M rows, ~1.69M samples, ~16.8% positive ratio)
 ### Time-based Split
 
 - Train (past) -> Val -> Test (future)
-- Split by target timestamp ??no future data in training.
+- Split by target timestamp -> no future data in training.
 
 ### Label-Shuffle Sanity Check
 
@@ -158,6 +158,7 @@ MIT License
 - Interview Q&A: [docs/interview_qa.md](docs/interview_qa.md)
 - Serving demo: [docs/serving_demo.md](docs/serving_demo.md) (FastAPI repo: [ctr-api](https://github.com/yoonjihyung2023/ctr-api))
 - Repro outputs: [reports/metrics.json](reports/metrics.json) + [reports/run_meta.json](reports/run_meta.json)
+
 
 
 
