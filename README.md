@@ -181,3 +181,9 @@ python -m src.run
 cat reports/metrics.json
 ```
 </details> 
+
+## 📌 Evidence (Interview-ready)
+- Leakage checklist: 'docs/leakage_checklist.md'
+- Interview Q&A: 'docs/interview_qa.md'
+- Serving demo: 'docs/serving_demo.md' (FastAPI repo: ctr-api)
+- Repro outputs: 'reports/metrics.json' + 'reports/run_meta.json'
