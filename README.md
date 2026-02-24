@@ -17,7 +17,7 @@
 
 ---
 
-## ?렞 Results
+## Results
 
 **Final model (1-line):** DIN-style feature interaction + Transformer-based sequence encoder (SASRec-inspired) for leakage-safe CTR prediction.  
 **理쒖쥌 紐⑤뜽(??以?:** DIN 湲곕컲 feature interaction + Transformer ?쒗???몄퐫??SASRec ?꾩씠?붿뼱)濡?CTR???덉륫?섍퀬, time-split?쇰줈 ?꾩닔 ?놁씠 ?됯??⑸땲??
@@ -67,7 +67,7 @@
 }
 ```
 
-## ?? Quickstart
+## Quickstart
 
 ### Kaggle Notebook (Recommended for full results)
 1. Create a Kaggle Notebook
@@ -106,7 +106,7 @@ type .\reports\metrics.json
 
 - Note: Local demo numbers are for verifying the pipeline + leakage check only (not comparable to Kaggle full run).
 
-## ?뱤 What This Does
+## What This Does
 
 - Predicts click-through rate (CTR) using sequential user behavior modeling.
 
@@ -124,7 +124,7 @@ Pipeline
 
 Dataset: Avazu CTR (2M rows, ~1.69M samples, ~16.8% positive ratio)
 
-## ?뵏 Leakage Prevention
+## Leakage Prevention
 ### Time-based Split
 
 - Train (past) ??Val ??Test (future)
@@ -139,7 +139,7 @@ Dataset: Avazu CTR (2M rows, ~1.69M samples, ~16.8% positive ratio)
 
 If leakage existed, the model could still perform well despite shuffled labels.
 
-## ?뱰 Citation
+## Citation
 ```bibtex
 @misc{ctr-seqrec-avazu,
   title={Leakage-safe CTR Prediction with Sequential Modeling},
@@ -150,41 +150,15 @@ If leakage existed, the model could still perform well despite shuffled labels.
 }
 ```
 
-## ?뱞 License
+## License
 MIT License
 
-## ?뙊 ?쒓뎅??
-<details>
-<summary>?대┃?섏뿬 蹂닿린</summary>
+## 📌 Evidence (Interview-ready)
+- Leakage checklist: [docs/leakage_checklist.md](docs/leakage_checklist.md)
+- Interview Q&A: [docs/interview_qa.md](docs/interview_qa.md)
+- Serving demo: [docs/serving_demo.md](docs/serving_demo.md) (FastAPI repo: [ctr-api](https://github.com/yoonjihyung2023/ctr-api))
+- Repro outputs: [reports/metrics.json](reports/metrics.json) + [reports/run_meta.json](reports/run_meta.json)
 
-### 寃곌낵
-蹂?紐⑤뜽: Test AUC 0.72659 / LogLoss 0.40009  
-?쇰꺼 ?뷀뵆(?숈뒿 ?쇰꺼留?: Test AUC 0.53265 / LogLoss 0.45085 (??.50)
 
-### ?듭떖
-?쒗??湲곕컲 CTR ?덉륫 + ?쒓컙 遺꾪븷濡?誘몃옒 ?곗씠??李⑤떒 + ?숈뒿 ?쇰꺼 ?뷀뵆濡??꾩닔 寃利?
 
-### ?ㅽ뻾
-Kaggle(沅뚯옣): ?명듃遺??앹꽦 ??avazu-ctr-prediction attach ???ㅽ뻾 ??肄섏넄 寃곌낵 ?뺤씤
-
-### Windows PowerShell(?곕え)
-```powershell
-py -m pip install -r requirements.txt
-py -m src.run
-type .\reports\metrics.json
-```
-
-### 濡쒖뺄(?곕え: Mac/Linux)
-```bash
-pip install -r requirements.txt
-python -m src.run
-cat reports/metrics.json
-```
-</details> 
-
-## ?뱦 Evidence (Interview-ready)
-- Leakage checklist: 'docs/leakage_checklist.md'
-- Interview Q&A: 'docs/interview_qa.md'
-- Serving demo: 'docs/serving_demo.md' (FastAPI repo: ctr-api)
-- Repro outputs: 'reports/metrics.json' + 'reports/run_meta.json'
 
