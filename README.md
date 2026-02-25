@@ -1,4 +1,4 @@
-# ctr-seqrec-avazu
+﻿# ctr-seqrec-avazu
 **Leakage-safe CTR/RecSys with sequential modeling on Avazu — reproducible `reports/metrics.json` + FastAPI serving demo (via `ctr-api`)**
 
 ## One-line
@@ -18,25 +18,24 @@ Kaggle Notebook: https://www.kaggle.com/code/yoonjihyung/notebook260213
 pip install -r requirements.txt
 python -m src.run
 cat reports/metrics.json
-```
 
-- Local run is a smoke test (pipeline + sanity check). Full numbers are from Kaggle.
+Local run is a smoke test (pipeline + sanity check). Full numbers are from Kaggle.
 
-## Results
+Results
 
 Final model (1-line): DIN-style feature interaction + Transformer-based sequence encoder (SASRec-inspired) for leakage-safe CTR prediction.
 최종 모델(한 줄): DIN 기반 feature interaction + Transformer 기반 시퀀스 인코더로 leakage-safe CTR 예측
 
-Metric	Main Model (Kaggle full run)	Label-Shuffle Sanity (shuffle train labels only)
-Test AUC	0.72659	0.53265
-Test LogLoss	0.40009	0.45085
-Meaning	Strong predictive signal	Near-random (sanity check)
+Metric    Main Model (Kaggle full run)    Label-Shuffle Sanity (shuffle train labels only)
+Test AUC    0.72659    0.53265
+Test LogLoss    0.40009    0.45085
+Meaning    Strong predictive signal    Near-random (sanity check)
 
 Reproducible: Results obtained from an end-to-end Kaggle run (2M rows, Tesla T4).
 Leakage verification: Shuffling train labels only collapses performance toward near-random (AUC ~0.5).
 (Small deviations like ~0.53 can occur due to sampling/training noise and early stopping.)
 
-## Evidence: reports/metrics.json snapshot (Kaggle full run)
+Evidence: reports/metrics.json snapshot (Kaggle full run)
 {
   "main": {
     "test_auc": 0.72659,
@@ -64,8 +63,7 @@ Leakage verification: Shuffling train labels only collapses performance toward n
     "cuda": true
   }
 }
-
-## Quickstart
+Quickstart
 Kaggle Notebook (Recommended for full results)
 
 Create a Kaggle Notebook
