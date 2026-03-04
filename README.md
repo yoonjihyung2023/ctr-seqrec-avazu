@@ -1,6 +1,8 @@
 ﻿# ctr-seqrec-avazu
-**Leakage-safe CTR/RecSys with sequential modeling on Avazu — reproducible `reports/metrics.json`**  
-**FastAPI serving demo:** see `ctr-api`
+Leakage-safe CTR/RecSys with sequential modeling on Avazu — outputs `reports/metrics.json`
+**Proof (Kaggle, 2M rows, Tesla T4):** Test AUC **0.72659** / LogLoss **0.40009**
+**Leakage-safe:** time-based split (no future) + label-shuffle sanity (AUC ≈ 0.5) + CI green
+**FastAPI serving demo:** https://github.com/yoonjihyung2023/ctr-api
 
 ## One-line
 Leakage-safe CTR/RecSys — time-based split (no future) + label-shuffle sanity + CI green.  
@@ -21,7 +23,6 @@ pip install -r requirements.txt
 python -m src.run
 cat reports/metrics.json
 ```
-
 
 Local run is a smoke test (pipeline + sanity check). Full numbers are from Kaggle.
 
@@ -91,7 +92,6 @@ pip install -r requirements.txt
 python -m src.run
 cat reports/metrics.json
 ```
-
 
 Windows PowerShell (one-liner)
 
@@ -167,5 +167,3 @@ Citation
 License
 
 MIT License
-
-
