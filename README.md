@@ -1,8 +1,10 @@
 ﻿# ctr-seqrec-avazu
-**Leakage-safe CTR/RecSys with sequential modeling on Avazu — reproducible `reports/metrics.json` + FastAPI serving demo (via `ctr-api`)**
+**Leakage-safe CTR/RecSys with sequential modeling on Avazu — reproducible `reports/metrics.json`**  
+**FastAPI serving demo:** see `ctr-api`
 
 ## One-line
-Leakage-safe CTR/RecSys — time-based split (no future) + label-shuffle sanity + reproducible outputs (`reports/metrics.json`) + CI green.
+Leakage-safe CTR/RecSys — time-based split (no future) + label-shuffle sanity + CI green.  
+Reproducible output: `reports/metrics.json`
 
 ## Proof (Kaggle full run)
 Avazu (2M rows, Tesla T4): **Test AUC 0.72659 / LogLoss 0.40009**  
@@ -161,3 +163,5 @@ Citation
 License
 
 MIT License
+
+
