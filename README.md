@@ -20,6 +20,8 @@ Kaggle Notebook: https://www.kaggle.com/code/yoonjihyung/notebook260213
 pip install -r requirements.txt
 python -m src.run
 cat reports/metrics.json
+```
+
 
 Local run is a smoke test (pipeline + sanity check). Full numbers are from Kaggle.
 
@@ -88,6 +90,8 @@ Mac/Linux
 pip install -r requirements.txt
 python -m src.run
 cat reports/metrics.json
+```
+
 
 Windows PowerShell (one-liner)
 
