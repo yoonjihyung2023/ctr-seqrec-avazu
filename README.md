@@ -1,17 +1,16 @@
 # ctr-seqrec-avazu
-**Leakage-safe CTR/RecSys benchmark with sequential modeling on Avazu**  
-**Proof (Kaggle, 2M rows, Tesla T4): Test AUC 0.72659 / LogLoss 0.40009**  
-**Leakage-safe:** time-based split (no future leakage) + label-shuffle sanity  
-**Reproducible:** `py -m src.run` → `reports/metrics.json`
+**Leakage-safe CTR benchmark on Avazu with sequential modeling**  
+**Proof:** Kaggle 2M rows (Tesla T4) — **Test AUC 0.72659 / LogLoss 0.40009**  
+**Trustworthy & reproducible:** time-based split + label-shuffle sanity + `py -m src.run` → `reports/metrics.json`
 
 ## One-line
-A leakage-safe CTR prediction pipeline with sequential user modeling, built for reproducible offline evaluation and interview-ready proof.
+A reproducible, leakage-safe CTR pipeline for trustworthy offline evaluation.
 
 ## Why this repo matters
-- **Trustworthy evaluation** with **time-based split**
-- **Sanity-checked learning** with **label-shuffle AUC ≈ 0.5**
-- **Reproducible results** saved to **`reports/metrics.json`**
-- **Portfolio-ready proof** from a full Kaggle run
+- **Prevents common offline evaluation mistakes** with **time-based split**
+- **Checks for false learning signals** with **label-shuffle sanity**
+- **Produces reproducible metrics** in **`reports/metrics.json`**
+- **Provides interview-ready proof** from a full Kaggle run
 
 ## Proof
 - Dataset: **Avazu CTR**
@@ -31,14 +30,14 @@ py -m src.run
 type reports\metrics.json
 ```
 
-## Output
-This repo generates:
+Generates `reports/metrics.json` with validation and test metrics.
 
+## Output
 ```text
 reports/metrics.json
 ```
 
-Example fields:
+## Example fields
 - `val_auc`
 - `val_logloss`
 - `test_auc`
