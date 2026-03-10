@@ -1,5 +1,7 @@
 ﻿# ctr-seqrec-avazu
 
+[![CI](https://github.com/yoonjihyung2023/ctr-seqrec-avazu/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/yoonjihyung2023/ctr-seqrec-avazu/actions/workflows/ci.yml)
+
 **Leakage-safe CTR benchmark on Avazu with sequential modeling**  
 **Proof:** Kaggle 2M rows (Tesla T4) — **Test AUC 0.72659 / LogLoss 0.40009**  
 **Trustworthy & reproducible:** time-based split + label-shuffle sanity + `reports/metrics.json`
@@ -36,3 +38,4 @@ cat reports/metrics.json
 
 ## Project goal
 This repo is built to show trustworthy CTR/RecSys evaluation with sequential user modeling, focusing on leakage prevention, reproducibility, and clear proof of results.
+
