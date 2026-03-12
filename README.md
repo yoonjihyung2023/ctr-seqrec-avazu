@@ -1,23 +1,11 @@
-﻿# ctr-seqrec-avazu
+# ctr-seqrec-avazu
 
-**Leakage-safe CTR benchmark on Avazu with sequential modeling**  
-**Proof:** Kaggle 2M rows (Tesla T4) — **Test AUC 0.72659 / LogLoss 0.40009**  
-**Trustworthy & reproducible:** time-based split + label-shuffle sanity + `reports/metrics.json`
+Leakage-safe CTR benchmark on Avazu with sequential modeling  
+Proof: Kaggle 2M rows (Tesla T4) — AUC 0.72659 / LogLoss 0.40009  
+Time-split + label-shuffle sanity + reproducible `reports/metrics.json`
 
 ## One-line
 A reproducible CTR prediction pipeline for trustworthy offline evaluation without future leakage.
-
-## Summary
-
-| Item | Details |
-|---|---|
-| Dataset | **Avazu CTR** |
-| Split logic | **Time-based split** (train / validation / test by time, no future leakage) |
-| Models | **Sequential CTR/RecSys modeling** with **SASRec / BERT4Rec-style approach** |
-| Main metrics | **Test AUC: 0.72659** / **Test LogLoss: 0.40009** |
-| Sanity checks | **Label-shuffle sanity** (performance should fall toward random-like level) |
-| Reproducibility | `python -m src.run` -> **`reports/metrics.json`** |
-| Run environment | **Kaggle**, **2M rows**, **Tesla T4** |
 
 ## Why this repo matters
 - **Prevents common offline evaluation mistakes** with **time-based split**
@@ -25,25 +13,45 @@ A reproducible CTR prediction pipeline for trustworthy offline evaluation withou
 - **Produces reproducible metrics** in **`reports/metrics.json`**
 - **Provides interview-ready proof** from a full Kaggle run
 
-## Quickstart
-1. `pip install -r requirements.txt`
-2. `python -m src.run`
-3. `type reports\metrics.json`
+## Summary
 
-## Proof
-- Dataset: **Avazu CTR**
-- Run setting: **Kaggle, 2M rows, Tesla T4**
-- **Test AUC:** `0.72659`
-- **Test LogLoss:** `0.40009`
+| Item | Value |
+|---|---|
+| Dataset | Avazu CTR |
+| Split logic | Time-based split |
+| Modeling | Sequential user modeling |
+| Run setting | Kaggle, 2M rows, Tesla T4 |
+| Test AUC | 0.72659 |
+| Test LogLoss | 0.40009 |
+| Sanity check | Label-shuffle |
+| Output artifact | `reports/metrics.json` |
 
 ## Leakage-safe evaluation
-- **Time-based split:** train / validation / test are separated by time
-- **No future leakage:** sequences and features are built from past information only
-- **Label-shuffle sanity:** shuffled labels should collapse performance toward random-like behavior
+- **Time-based split:** train / val / test are split by time
+- **No future leakage:** features and sequences are built from past information only
+- **Label-shuffle sanity:** shuffled train labels should produce near-random performance
 
-## Output
-Main benchmark output:
-- **`reports/metrics.json`**
+## Reproducible run
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+Main outputs
 
-## Project goal
-This repo is built to show leakage-safe CTR evaluation and sequential modeling with reproducible, interview-ready proof.
+trained model artifact
+
+evaluation metrics
+
+reproducible reports/metrics.json
+
+Why it is useful for hiring
+
+This repository is built to show trustworthy CTR / RecSys experimentation:
+
+not just model training
+
+but also evaluation correctness
+
+reproducibility
+
+and proof that the result is not driven by leakage
