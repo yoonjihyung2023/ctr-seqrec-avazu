@@ -9,10 +9,11 @@ Built on the Avazu CTR dataset to demonstrate trustworthy offline validation for
 **Reproducibility:** results saved to `reports/metrics.json`
 
 ## Quickstart
-```bash
+`ash
 pip install -r requirements.txt
 python src/train.py
 type reports\metrics.json
-TL;DR
+`",
+",
 
 Leakage-safe CTR/RecSys on Avazu with trustworthy offline evaluation and reproducible results.
