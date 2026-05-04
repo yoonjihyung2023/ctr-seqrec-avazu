@@ -1,5 +1,13 @@
 ﻿# ctr-seqrec-avazu
 
+End-to-end CTR system:
+training → serving → logging → retraining
+
+Simulates real production workflow (no data leakage, time-based split)
+
+Ready for integration into online ad/recommendation systems
+
+
 Leakage-safe CTR/RecSys project with time-based evaluation, label-shuffle sanity checks, and reproducible metrics.
 
 ## TL;DR
@@ -35,4 +43,5 @@ It is designed to answer three recruiter-facing questions quickly:
 pip install -r requirements.txt
 python src/train.py
 type reports\metrics.json
+
 
