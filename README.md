@@ -44,6 +44,28 @@ pip install -r requirements.txt
 python src/train.py
 type reports\metrics.json
 
+## Portfolio Proof
 
+This repo demonstrates the **training / offline evaluation** part of my Ads/RecSys portfolio.
 
+- Dataset: Avazu CTR prediction
+- Result: AUC 0.72659 / LogLoss 0.40009
+- Validation: leakage-safe time split
+- Sanity check: label-shuffle test
+- Reproducibility: `reports/metrics.json`
+
+## Suggested Screenshot
+
+Add a screenshot showing `reports/metrics.json` or terminal output after running:
+
+- `python -m src.run`
+- `cat reports/metrics.json`
+
+Recommended path:
+
+- `docs/metrics-proof.png`
+
+Then include it in this README later:
+
+- `![Metrics proof](docs/metrics-proof.png)`
 
