@@ -1,4 +1,4 @@
-﻿# ctr-seqrec-avazu
+# ctr-seqrec-avazu
 
 End-to-end CTR system:
 training → serving → logging → retraining
@@ -6,7 +6,6 @@ training → serving → logging → retraining
 Simulates real production workflow (no data leakage, time-based split)
 
 Ready for integration into online ad/recommendation systems
-
 
 Leakage-safe CTR/RecSys project with time-based evaluation, label-shuffle sanity checks, and reproducible metrics.
 
@@ -39,11 +38,21 @@ It is designed to answer three recruiter-facing questions quickly:
 
 ## Quickstart
 
-```bash
+```
+powershell
 pip install -r requirements.txt
-python src/train.py
+python -m src.run
 type reports\metrics.json
+```
 
+For macOS/Linux:
+
+```
+bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+```
 ## Portfolio Proof
 
 This repo demonstrates the **training / offline evaluation** part of my Ads/RecSys portfolio.
@@ -68,4 +77,3 @@ Recommended path:
 Then include it in this README later:
 
 - `![Metrics proof](docs/metrics-proof.png)`
-
