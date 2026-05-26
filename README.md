@@ -1,5 +1,18 @@
 ﻿# ctr-seqrec-avazu
 
+## Quickstart
+
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+
+Windows PowerShell:
+
+pip install -r requirements.txt
+py -m src.run
+type reports\metrics.json
+
 End-to-end CTR system:
 training ??serving ??logging ??retraining
 
@@ -10,6 +23,19 @@ Ready for integration into online ad/recommendation systems
 Leakage-safe CTR/RecSys project with time-based evaluation, label-shuffle sanity checks, and reproducible metrics.
 
 ## TL;DR
+
+## Quickstart
+
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+
+Windows PowerShell:
+
+pip install -r requirements.txt
+py -m src.run
+type reports\metrics.json
 
 This repo demonstrates a **leakage-safe CTR / sequential recommendation pipeline** on the **Avazu** dataset.
 
@@ -26,10 +52,36 @@ It is designed to answer three recruiter-facing questions quickly:
 
 ## Key result
 
+## Quickstart
+
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+
+Windows PowerShell:
+
+pip install -r requirements.txt
+py -m src.run
+type reports\metrics.json
+
 - **Test AUC:** 0.72659
 - **Test LogLoss:** 0.40009
 
 ## Why this repo matters
+
+## Quickstart
+
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+
+Windows PowerShell:
+
+pip install -r requirements.txt
+py -m src.run
+type reports\metrics.json
 
 - **Leakage-safe evaluation** with time-based split
 - **Sanity checks** to detect suspicious performance
@@ -37,6 +89,19 @@ It is designed to answer three recruiter-facing questions quickly:
 - **Clear benchmark framing** for CTR / RecSys portfolio use
 
 ## Quickstart
+
+## Quickstart
+
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat reports/metrics.json
+
+Windows PowerShell:
+
+pip install -r requirements.txt
+py -m src.run
+type reports\metrics.json
 
 ```bash
 pip install -r requirements.txt
@@ -57,3 +122,4 @@ Result: AUC 0.72659 / LogLoss 0.40009
 Validation: leakage-safe time split
 Sanity check: label-shuffle test
 Reproducibility: reports/metrics.jsonrnrn
+
