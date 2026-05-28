@@ -23,7 +23,7 @@ This project focuses on evaluation correctness and reproducibility:
 - Leakage-safe time-based split
 - Label-shuffle sanity check
 - Reproducible run command
-- Metrics saved to `reports/metrics.json`
+- Main Kaggle metrics saved to `reports/metrics_kaggle_avazu_2m.json`; local smoke metrics kept in `reports/metrics.json`
 
 ## Quickstart
 
@@ -31,7 +31,7 @@ This project focuses on evaluation correctness and reproducibility:
 bash
 pip install -r requirements.txt
 python -m src.run
-cat reports/metrics.json
+cat reports/metrics_kaggle_avazu_2m.json
 ```
 
 For Windows PowerShell:
@@ -40,7 +40,7 @@ For Windows PowerShell:
 powershell
 pip install -r requirements.txt
 py -m src.run
-type reports\metrics.json
+type reports\metrics_kaggle_avazu_2m.json
 ```
 
 ## Result
@@ -78,5 +78,6 @@ This project uses a time-based split and sanity checks so the reported result is
 Serving demo:
 
 - [ctr-api](https://github.com/yoonjihyung2023/ctr-api) — FastAPI + Docker inference API
+
 
 
