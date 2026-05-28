@@ -1,0 +1,10 @@
+﻿{
+  "dataset": "Avazu CTR",
+  "run_type": "kaggle_full_run",
+  "rows": 2000000,
+  "hardware": "Tesla T4",
+  "split": "leakage-safe time-based split",
+  "test_auc": 0.72659,
+  "test_logloss": 0.40009,
+  "note": "Full Avazu run result reported in README. This is intentionally separated from local smoke/synthetic metrics."
+}

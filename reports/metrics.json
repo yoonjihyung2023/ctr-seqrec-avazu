@@ -1,8 +1,13 @@
-{
-  "seq_len": 50,
-  "test_auc": 0.553399,
-  "test_logloss": 0.688647,
-  "label_shuffle_auc": 0.503928,
-  "runtime_sec": 0.0056,
-  "note": "synthetic quick experiment to validate weekly loop; extend to Avazu/Kaggle later"
+﻿{
+  "primary_result_file": "reports/metrics_kaggle_avazu_2m.json",
+  "local_smoke_result_file": "reports/metrics_local_synthetic.json",
+  "primary_result": {
+    "dataset": "Avazu CTR",
+    "run_type": "kaggle_full_run",
+    "rows": 2000000,
+    "hardware": "Tesla T4",
+    "test_auc": 0.72659,
+    "test_logloss": 0.40009
+  },
+  "local_smoke_note": "Local smoke/synthetic metrics are stored separately and should not be confused with the Kaggle Avazu full-run result."
 }

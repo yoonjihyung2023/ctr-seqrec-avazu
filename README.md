@@ -1,5 +1,19 @@
 ﻿# ctr-seqrec-avazu
 
+## Trust / Reproducibility Check
+
+This repo separates the main Kaggle Avazu result from local smoke/synthetic checks to avoid metric confusion.
+
+- **Main Kaggle Avazu 2M run:** `reports/metrics_kaggle_avazu_2m.json`
+  - AUC: **0.72659**
+  - LogLoss: **0.40009**
+  - Split: leakage-safe time-based split
+- **Local smoke/synthetic check:** `reports/metrics_local_synthetic.json`
+- **Compatibility pointer:** `reports/metrics.json`
+
+The Kaggle full-run metric and local smoke metric are intentionally stored separately.
+
+
 Ads / RecSys CTR prediction benchmark on the Avazu dataset.
 
 **Key result:** AUC **0.72659** / LogLoss **0.40009** on Avazu 2M rows.
@@ -64,4 +78,5 @@ This project uses a time-based split and sanity checks so the reported result is
 Serving demo:
 
 - [ctr-api](https://github.com/yoonjihyung2023/ctr-api) — FastAPI + Docker inference API
+
 
