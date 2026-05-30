@@ -81,3 +81,12 @@ Serving demo:
 
 
 
+
+Model Comparison
+Model    Main Idea    Strength    Limitation    Portfolio Role
+Logistic Regression / MLP    Basic CTR prediction baseline    Simple, fast, easy to debug    Limited sequence modeling    Baseline sanity check
+SASRec-style CTR    Unidirectional self-attention over user behavior    Efficient and suitable for recent behavior patterns    Weaker at capturing bidirectional context    Main sequential baseline
+BERT4Rec-style CTR    Bidirectional Transformer with masked behavior modeling    Stronger long-term behavior representation    More expensive to train and tune    Comparison target
+Feature-based CTR model    Uses categorical ad/user/context features    Practical for sparse ad-click data    Less expressive for temporal user behavior    Production-oriented baseline
+
+The goal of this project is not only to maximize AUC, but also to compare CTR models under leakage-safe evaluation settings using a time-based split and sanity checks such as label-shuffle validation.
