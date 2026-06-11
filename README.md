@@ -1,92 +1,118 @@
 ﻿# ctr-seqrec-avazu
 
-## Trust / Reproducibility Check
+End-to-end CTR system:
+training ??serving ??logging ??retraining
 
-This repo separates the main Kaggle Avazu result from local smoke/synthetic checks to avoid metric confusion.
+Simulates real production workflow (no data leakage, time-based split)
 
-- **Main Kaggle Avazu 2M run:** `reports/metrics_kaggle_avazu_2m.json`
-  - AUC: **0.72659**
-  - LogLoss: **0.40009**
-  - Split: leakage-safe time-based split
-- **Local smoke/synthetic check:** `reports/metrics_local_synthetic.json`
-- **Compatibility pointer:** `reports/metrics.json`
+Ready for integration into online ad/recommendation systems
 
-The Kaggle full-run metric and local smoke metric are intentionally stored separately.
+Leakage-safe CTR/RecSys project with time-based evaluation, label-shuffle sanity checks, and reproducible metrics.
 
+## TL;DR
 
-Ads / RecSys CTR prediction benchmark on the Avazu dataset.
+This repo demonstrates a **leakage-safe CTR / sequential recommendation pipeline** on the **Avazu** dataset.
 
-**Key result:** AUC **0.72659** / LogLoss **0.40009** on Avazu 2M rows.
+It is designed to answer three recruiter-facing questions quickly:
 
-This project focuses on evaluation correctness and reproducibility:
+1. **What problem is being solved?**  
+   Predict whether a user will click an ad.
 
-- Leakage-safe time-based split
-- Label-shuffle sanity check
-- Reproducible run command
-- Main Kaggle metrics saved to `reports/metrics_kaggle_avazu_2m.json`; local smoke metrics kept in `reports/metrics.json`
+2. **Why is this hard?**  
+   CTR pipelines are vulnerable to **data leakage**, unrealistic splits, and inflated metrics.
+
+3. **How was it validated?**  
+   With **time-based evaluation**, **label-shuffle sanity checks**, and saved metrics in `reports/metrics.json`.
+
+## Key result
+
+- **Test AUC:** 0.72659
+- **Test LogLoss:** 0.40009
+
+## Why this repo matters
+
+- **Leakage-safe evaluation** with time-based split
+- **Sanity checks** to detect suspicious performance
+- **Reproducible outputs** saved to `reports/metrics.json`
+- **Clear benchmark framing** for CTR / RecSys portfolio use
 
 ## Quickstart
+
+```
+powershell
+pip install -r requirements.txt
+python -m src.run
+type reports\metrics.json
+```
+
+For macOS/Linux:
 
 ```
 bash
 pip install -r requirements.txt
 python -m src.run
-cat reports/metrics_kaggle_avazu_2m.json
+cat reports/metrics.json
 ```
-
-For Windows PowerShell:
-
-```
-powershell
-pip install -r requirements.txt
-py -m src.run
-type reports\metrics_kaggle_avazu_2m.json
-```
-
-## Result
-
-| Dataset | Rows | AUC | LogLoss | Validation |
-|---|---:|---:|---:|---|
-| Avazu | 2M | 0.72659 | 0.40009 | Leakage-safe time split |
-
 ## Portfolio Proof
 
-This repository demonstrates practical ML engineering skills for CTR / recommendation systems:
+This repo demonstrates the **training / offline evaluation** part of my Ads/RecSys portfolio.
 
-- Built an end-to-end CTR prediction pipeline
-- Used time-based validation to avoid future leakage
-- Ran a label-shuffle sanity check to verify the evaluation setup
-- Saved reproducible metrics in `reports/metrics.json`
-- Packaged the project so it can be rerun with a single module command
+- Dataset: Avazu CTR prediction
+- Result: AUC 0.72659 / LogLoss 0.40009
+- Validation: leakage-safe time split
+- Sanity check: label-shuffle test
+- Reproducibility: `reports/metrics.json`
 
-## Why this matters
+## Suggested Screenshot
 
-CTR prediction and recommendation problems are sensitive to data leakage.
-A random split can make offline metrics look better than real-world performance.
+Add a screenshot showing `reports/metrics.json` or terminal output after running:
 
-This project uses a time-based split and sanity checks so the reported result is more trustworthy.
+- `python -m src.run`
+- `cat reports/metrics.json`
 
-## Tech Stack
+Recommended path:
 
-- Python
-- PyTorch
-- pandas / scikit-learn
-- Reproducible CLI pipeline
+- `docs/metrics-proof.png`
 
-## Related Project
+Then include it in this README later:
 
-Serving demo:
+- `![Metrics proof](docs/metrics-proof.png)`nn## Quickstart
 
-- [ctr-api](https://github.com/yoonjihyung2023/ctr-api) — FastAPI + Docker inference API
+### macOS / Linux
 
-
-
-
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat metrics_kaggle_avazu_2m.json
+Windows PowerShell
+pip install -r requirements.txt
+py -m src.run
+type metrics_kaggle_avazu_2m.jsonnn
 Model Comparison
-Model    Main Idea    Strength    Limitation    Portfolio Role
-Logistic Regression / MLP    Basic CTR prediction baseline    Simple, fast, easy to debug    Limited sequence modeling    Baseline sanity check
-SASRec-style CTR    Unidirectional self-attention over user behavior    Efficient and suitable for recent behavior patterns    Weaker at capturing bidirectional context    Main sequential baseline
-BERT4Rec-style CTR    Bidirectional Transformer with masked behavior modeling    Stronger long-term behavior representation    More expensive to train and tune    Comparison target
-Feature-based CTR model    Uses categorical ad/user/context features    Practical for sparse ad-click data    Less expressive for temporal user behavior    Production-oriented baseline
+Model    Main Idea    Strengths    Limitations    Role in This Project
+SASRec / SAS4CTR    Unidirectional self-attention for sequential user behavior    Fast, simple, effective for recent behavior patterns    Weaker at capturing bidirectional context    Main sequential CTR baseline
+BERT4Rec / BERT4CTR    Bidirectional Transformer with masked item modeling    Stronger long-term representation and context modeling    Heavier training cost and higher compute demand    Main comparison model
+DIN    Attention over user behavior history for CTR prediction    Strong personalization and interpretable user-interest weighting    Less focused on sequence order than Transformer models    CTR-oriented reference baseline
+DeepFM    Combines factorization machines and deep neural networks    Strong general CTR baseline for sparse features    Does not explicitly model behavior sequence    Non-sequential CTR baseline
 
-The goal of this project is not only to maximize AUC, but also to compare CTR models under leakage-safe evaluation settings using a time-based split and sanity checks such as label-shuffle validation.
+This project focuses on comparing sequential recommendation models for CTR prediction, especially the trade-off between accuracy, personalization, and computational efficiency.nn## Quickstart
+
+### macOS / Linux
+
+```bash
+pip install -r requirements.txt
+python -m src.run
+cat metrics_kaggle_avazu_2m.json
+Windows PowerShell
+pip install -r requirements.txt
+py -m src.run
+type metrics_kaggle_avazu_2m.jsonnn
+Model Comparison
+Model    Main Idea    Strengths    Limitations    Role in This Project
+SASRec / SAS4CTR    Unidirectional self-attention for sequential user behavior    Fast, simple, effective for recent behavior patterns    Weaker at capturing bidirectional context    Main sequential CTR baseline
+BERT4Rec / BERT4CTR    Bidirectional Transformer with masked item modeling    Stronger long-term representation and context modeling    Heavier training cost and higher compute demand    Main comparison model
+DIN    Attention over user behavior history for CTR prediction    Strong personalization and interpretable user-interest weighting    Less focused on sequence order than Transformer models    CTR-oriented reference baseline
+DeepFM    Combines factorization machines and deep neural networks    Strong general CTR baseline for sparse features    Does not explicitly model behavior sequence    Non-sequential CTR baseline
+
+This project focuses on comparing sequential recommendation models for CTR prediction, especially the trade-off between accuracy, personalization, and computational efficiency.
+
