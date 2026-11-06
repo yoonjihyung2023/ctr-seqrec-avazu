@@ -1,13 +1,15 @@
-﻿{
+{
   "primary_result_file": "reports/metrics_kaggle_avazu_2m.json",
   "local_smoke_result_file": "reports/metrics_local_synthetic.json",
   "primary_result": {
     "dataset": "Avazu CTR",
-    "run_type": "kaggle_full_run",
+    "run_type": "kaggle_2m_reported",
     "rows": 2000000,
     "hardware": "Tesla T4",
     "test_auc": 0.72659,
-    "test_logloss": 0.40009
+    "test_logloss": 0.40009,
+    "verification_status": "original_normal_run_output_not_verified",
+    "verification_note": "Previously reported values; the original normal-training execution output has not been located."
   },
-  "local_smoke_note": "Local smoke/synthetic metrics are stored separately and should not be confused with the Kaggle Avazu full-run result."
+  "local_smoke_note": "Local synthetic metrics are stored separately and do not reproduce the reported Kaggle result."
 }

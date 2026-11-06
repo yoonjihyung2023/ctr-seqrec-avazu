@@ -1,4 +1,4 @@
-﻿import json
+import json
 import os
 import time
 import numpy as np
@@ -79,7 +79,7 @@ def main():
         "note": "synthetic quick experiment to validate weekly loop; extend to Avazu/Kaggle later"
     }
 
-    with open("reports/metrics.json", "w", encoding="utf-8") as f:
+    with open("reports/metrics_local_synthetic.json", "w", encoding="utf-8") as f:
         json.dump(metrics, f, ensure_ascii=False, indent=2)
 
     print("DONE:", metrics)

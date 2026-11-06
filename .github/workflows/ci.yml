@@ -36,4 +36,4 @@ jobs:
       - name: Show metrics
         run: |
           ls -la reports || true
-          cat reports/metrics.json || true
+          cat reports/metrics_local_synthetic.json

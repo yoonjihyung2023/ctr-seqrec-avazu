@@ -1,10 +1,11 @@
-﻿{
+{
   "dataset": "Avazu CTR",
-  "run_type": "kaggle_full_run",
+  "run_type": "kaggle_2m_reported",
   "rows": 2000000,
   "hardware": "Tesla T4",
-  "split": "leakage-safe time-based split",
+  "split": "time-based split reported; normal-run output not yet verified",
   "test_auc": 0.72659,
   "test_logloss": 0.40009,
-  "note": "Full Avazu run result reported in README. This is intentionally separated from local smoke/synthetic metrics."
+  "note": "Previously reported normal-run values; original execution output has not been located. Separate from the local synthetic smoke test.",
+  "verification_status": "original_normal_run_output_not_verified"
 }
