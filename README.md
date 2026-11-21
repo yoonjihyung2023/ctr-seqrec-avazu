@@ -5,28 +5,26 @@ The Kaggle experiment and the local script use different data and serve differen
 
 ## Avazu Kaggle experiment
 
-A saved Kaggle notebook loads the first 2,000,000 rows of the Avazu training file,
-uses `device_id` as a history key, and constructs samples from the preceding 20 events.
-The PyTorch model combines a causal Transformer inspired by SASRec with
-current-event-to-history attention inspired by DIN. Target events are split by hour.
-The recorded execution output reports a Tesla T4 GPU.
+The notebook loads the first 2,000,000 rows of the Avazu competition's `train.gz`,
+uses `device_id` as a history key, and constructs each sample from the preceding
+20 events. The PyTorch model combines a causal Transformer inspired by SASRec
+with current-event-to-history attention inspired by DIN.
 
-The notebook output currently available is a **training-label shuffle sanity check**:
+**Representative run (2026-11-21).** Normal training on a Tesla T4 yielded
+**Test AUC 0.72656** and **Test LogLoss 0.40010** on **125,584 events** in the
+internal test split. The target event hour determined the chronological split.
+The [execution notebook with saved output](notebooks/notebook11d7deff88.ipynb) contains
+the code and the epoch-by-epoch and final test results.
 
-| Run | Test AUC | Test LogLoss | Status |
+| Run | Test AUC | Test LogLoss | Evidence |
 | --- | ---: | ---: | --- |
-| Training labels shuffled | 0.53265 | 0.45085 | Observed in saved notebook output; diagnostic run, not normal-training performance |
-| Normal training, previously reported | 0.72659 | 0.40009 | Original execution output has not been located; not independently verified |
+| Normal training, 2026-11-21 | **0.72656** | **0.40010** | Code and saved output in the linked notebook |
+| Training labels shuffled | 0.53265 | 0.45085 | Saved output from the earlier diagnostic run |
+| Normal training, previously reported | 0.72659 | 0.40009 | [Historical record](reports/metrics_kaggle_avazu_2m.json) with the original output unverified |
 
-The previously reported normal-run numbers remain in
-[`reports/metrics_kaggle_avazu_2m.json`](reports/metrics_kaggle_avazu_2m.json)
-as a record, not proof of a reproduced result. The saved Kaggle notebook is not
-currently included in this repository, so the Kaggle results cannot be
-reproduced from this repository alone.
-
-A time split and a label-shuffle check are useful safeguards, but neither proves
-the absence of leakage. `device_id` is a proxy for a user and may be shared;
-the available hour field also does not establish event order within an hour.
+The notebook builds the categorical vocabulary before splitting. A `device_id`
+is a proxy for a user and may be shared. Events logged in the same hour can
+appear in the history window, so their precise order is unavailable.
 
 ## Local synthetic smoke test
 
@@ -58,10 +56,3 @@ Get-Content reports/metrics_local_synthetic.json
 
 The synthetic sequence-length notes are in
 [`experiments/2026-02-15-seq-len.md`](experiments/2026-02-15-seq-len.md).
-
-## Next verification step
-
-Locate the original normal-training notebook output or rerun the Kaggle
-experiment with label shuffling disabled, preserving the code, split settings,
-and final test output together. Do not treat the existing JSON summary alone as
-independent evidence of the normal-run result.
