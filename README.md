@@ -13,7 +13,7 @@ with current-event-to-history attention inspired by DIN.
 **Representative run (2026-11-21).** Normal training on a Tesla T4 yielded
 **Test AUC 0.72656** and **Test LogLoss 0.40010** on **125,584 events** in the
 internal test split. The target event hour determined the chronological split.
-The [execution notebook with saved output](notebooks/notebook11d7deff88.ipynb) contains
+The [execution notebook with saved output](notebooks/avazu-ctr-2m-din-sasrec.ipynb) contains
 the code and the epoch-by-epoch and final test results.
 
 | Run | Test AUC | Test LogLoss | Evidence |
