@@ -1,3 +1,23 @@
+## Latest Benchmark (2026-11-28)
+
+Avazu CTR prediction benchmark using 2 million impressions.
+
+| Model | ROC AUC | LogLoss |
+|---|---:|---:|
+| Logistic Regression | 0.740531 | 0.396285 |
+| LightGBM | 0.720676 | 0.402776 |
+| **SASRec-DIN-inspired** | **0.742281** | **0.392768** |
+
+- 0.89% lower LogLoss than Logistic Regression.
+- 2.48% lower LogLoss than LightGBM.
+- Chronological split, train-only vocabulary and strictly earlier-hour histories.
+
+[Benchmark code and results (ZIP)](github_ctr_update.zip)
+
+Limitations: Single seed, short test window, additional historical features in the sequential model, and unverified statistical significance. This is a separate experiment from the earlier benchmark.
+
+---
+
 # CTR experiment notes: Avazu and local synthetic checks
 
 This repository collects CTR experiment notes and a small synthetic smoke test.
