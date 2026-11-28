@@ -1,0 +1,124 @@
+{
+  "dataset_rows": 2000000,
+  "sample_hash": "86d852d27b46242595b63e2b5507ba1cee77079bc4998a267f18d9f0484ef231",
+  "splits": {
+    "train": 1435205,
+    "validation": 416555,
+    "test": 148240,
+    "validation_start": "2014-10-21 07:00:00",
+    "test_start": "2014-10-21 09:00:00"
+  },
+  "seed": 42,
+  "device": "cuda",
+  "columns": [
+    "C1",
+    "banner_pos",
+    "site_id",
+    "site_domain",
+    "site_category",
+    "app_id",
+    "app_domain",
+    "app_category",
+    "device_id",
+    "device_ip",
+    "device_model",
+    "device_type",
+    "device_conn_type",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C21",
+    "event_hour",
+    "weekday",
+    "history_count"
+  ],
+  "unknown_rates_test": {
+    "C1": 0.0,
+    "banner_pos": 0.0,
+    "site_id": 0.0015852671343766864,
+    "site_domain": 0.002522935779816514,
+    "site_category": 0.0,
+    "app_id": 0.006900971397733405,
+    "app_domain": 0.0005666486778197517,
+    "app_category": 0.0,
+    "device_id": 0.1442458175930923,
+    "device_ip": 0.7291958985429035,
+    "device_model": 0.00372369131138694,
+    "device_type": 0.0,
+    "device_conn_type": 0.0,
+    "C14": 0.314692390717755,
+    "C15": 0.0,
+    "C16": 0.0,
+    "C17": 0.31451699946033457,
+    "C18": 0.0,
+    "C19": 0.025269832703723693,
+    "C20": 0.0,
+    "C21": 0.1737048030221263,
+    "event_hour": 1.0,
+    "weekday": 0.0,
+    "history_count": 0.0
+  },
+  "arguments": {
+    "data": "/kaggle/input/competitions/avazu-ctr-prediction/train.gz",
+    "output": "/kaggle/working/ctr_20261128_065503_838302",
+    "rows": 2000000,
+    "epochs": 3,
+    "batch_size": 512,
+    "history_length": 20,
+    "max_vocab": 50000,
+    "seed": 42,
+    "threads": 4
+  },
+  "versions": {
+    "numpy": "2.1.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.6.1",
+    "lightgbm": "4.6.0",
+    "torch": "2.11.0+cu130"
+  },
+  "python": "3.13.16",
+  "sequence_validation": [
+    {
+      "epoch": 1,
+      "auc": 0.7465266317493047,
+      "logloss": 0.39779494603234644
+    },
+    {
+      "epoch": 2,
+      "auc": 0.7475519693293362,
+      "logloss": 0.40123592382289325
+    },
+    {
+      "epoch": 3,
+      "auc": 0.7471537816018783,
+      "logloss": 0.4009541896182086
+    }
+  ],
+  "results": [
+    {
+      "model": "Logistic Regression",
+      "auc": 0.7405307153721095,
+      "logloss": 0.39628524567410545,
+      "seconds": 87.87,
+      "iterations": 61,
+      "converged_before_limit": true
+    },
+    {
+      "model": "LightGBM",
+      "auc": 0.7206759876881407,
+      "logloss": 0.40277637362290003,
+      "seconds": 48.32
+    },
+    {
+      "model": "SASRec-DIN-inspired",
+      "auc": 0.7422814413337016,
+      "logloss": 0.39276827632425765,
+      "seconds": 99.67
+    }
+  ],
+  "total_seconds": 269.92
+}
